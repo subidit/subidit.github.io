@@ -1,7 +1,10 @@
+![image](https://user-images.githubusercontent.com/6633808/160689302-3fe5e5d4-ba24-4525-8ed1-a8351ccbc0ef.png)
 
+### Hi there 👋
+My name is **Subidit Nandy**.
+<!--
 ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
-
-
+-->
 # Project Title
 
 A brief description of what this project does and who it's for
