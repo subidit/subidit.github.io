@@ -1,66 +1,11 @@
-![image](https://user-images.githubusercontent.com/6633808/160689302-3fe5e5d4-ba24-4525-8ed1-a8351ccbc0ef.png)
-
 ### Hi there 👋
 My name is **Subidit Nandy**.
-<!--
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
--->
-# Project Title
 
-A brief description of what this project does and who it's for
+![image](https://user-images.githubusercontent.com/6633808/160689302-3fe5e5d4-ba24-4525-8ed1-a8351ccbc0ef.png)
 
-
-## Features
-
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
-
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-
-## Usage/Examples
-
-```javascript
-import Component from 'my-project'
-
-function App() {
-  return <Component />
-}
-```
-
-
-## Documentation
-
-[Documentation](https://linktodocumentation)
-
-
-## FAQ
-
-#### Question 1
-
-Answer 1
-
-#### Question 2
-
-Answer 2
-
-
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
-
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
+### 2023 🎲 Trying new strategy in Futures and Options (F&O) market.
+### 2022 🧻️ Cleaning up after a shitty year.
+### 2021 🍼 Dad of Inika.
+### 2020 🛐 Vipassana retreat. 
+### 2008 🎓 B.Tech. in Biomedical Engineering.
+### 2004 🎊 Graduated High School.
