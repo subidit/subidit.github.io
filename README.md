@@ -5,7 +5,7 @@ My name is **Subidit Nandy**.
 
 ### 2023 🎲 Gambling in Futures and Options (F&O) market.
 ### 2022 🧻️ Cleaning up after a shitty year.
-<--
+<!--
 ### 2021 🍼 Dad of Inika.
 ### 2020 🛐 Vipassana retreat. 
 ### 2008 🎓 B.Tech. in Biomedical Engineering.
