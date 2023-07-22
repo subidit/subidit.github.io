@@ -1,7 +1,7 @@
 ### Hi there 👋
 My name is **Subidit Nandy**.
 
-![image](https://doodleipsum.com/800x300/outline?i=e7365ae3c99ec86ae302a1599f80ade8)
+![image](Human.svg)
 
 #### 2023 🎲 Gambling in Futures and Options (F&O) market.
 #### 2022 🧻️ Cleaning up after a shitty year.
