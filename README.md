@@ -3,10 +3,12 @@ My name is **Subidit Nandy**.
 
 ![image](Human.svg)
 
-#### 2023 🎲 Gambling in Futures and Options (F&O) market.
-#### 2022 🧻️ Cleaning up after a shitty year.
+#### 2023 🎲 Futures and Options (F&O) 
+#### 2022 🧻️ Cleaning up after a shitty year
+#### 2020 🦠 COVID-19
 #### 2008 🎓 B.Tech. in Biomedical Engineering
-#### 2007 📱 iPhone launched
+#### 2007 📱 iPhone launched but bought iPod Touch
+#### 2005 📬 Gmail ID created (Launched on 01/04/2004)
 <!--
 ### 2021 🍼 Dad of Inika.
 ### 2020 🛐 Vipassana retreat. 
