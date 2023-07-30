@@ -3,12 +3,27 @@ My name is **Subidit Nandy**.
 
 ![image](Human.svg)
 
-#### 2023 🎲 Futures and Options (F&O) 
-#### 2022 🧻️ Cleaning up after a shitty year
 #### 2020 🦠 COVID-19
-#### 2008 🎓 B.Tech. in Biomedical Engineering
-#### 2007 📱 iPhone launched but bought iPod Touch
-#### 2005 📬 Gmail ID created (Launched on 01/04/2004)
+#### 2016 💃 TikTok
+#### 2012 📚 MOOC (Massive open online courses)
+#### 2011 📳 Snapchat, Google+
+#### 2010 🤳 Instagram
+#### 2009 💱 Bitcoin
+#### 2008 📻 Spotify, Dropbox
+#### 2007 📱 iPhone 
+#### 2006 ☁️ AWS, Twitter
+#### 2005 🗳️ YouTube, Reddit
+#### 2004 👀 Facebook, Flickr
+#### 2003 🏴‍☠️ The Pirate Bay, 4chan, Skype, Myspace, LinkedIn
+#### 2001 📖 Wikipedia, BitTorrent
+#### 1999 🎧 Napster
+#### 1998 💸 PayPal
+#### 1997 🔎 Google
+#### 1996 📧 Hotmail
+#### 1995 🧌 eBay, Craigslist, Amazon
+#### 1994 🗞️ Yahoo!
+#### 1990 🎞️ IMDb
+#### 1989 📟 AOL (Dial-up service)
 <!--
 ### 2021 🍼 Dad of Inika.
 ### 2020 🛐 Vipassana retreat. 
