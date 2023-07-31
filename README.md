@@ -21,9 +21,10 @@ My name is **Subidit Nandy**.
 #### 1997 🔎 Google
 #### 1996 📧 Hotmail
 #### 1995 🧌 eBay, Craigslist, Amazon
-#### 1994 🗞️ Yahoo!
-#### 1990 🎞️ IMDb
-#### 1989 📟 AOL (Dial-up service)
+#### 1994 🗞️ Netscape, Yahoo!
+#### 1991 🌐 First website [info.cern.ch](http://info.cern.ch/hypertext/WWW/TheProject.html)
+#### 1990 🎞️ IMDb (imdb.com in 2006)
+#### 1989 📟 dialup internet, email
 <!--
 ### 2021 🍼 Dad.
 ### 2020 🛐 Vipassana retreat. 
