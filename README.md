@@ -14,7 +14,7 @@ My name is **Subidit Nandy**.
 #### 2006 ☁️ AWS, Twitter
 #### 2005 🗳️ Git, YouTube, Reddit
 #### 2004 👀 Facebook, Flickr
-#### 2003 🏴‍☠️ The Pirate Bay, 4chan, Myspace, Skype, LinkedIn
+#### 2003 🏴‍☠️ The Pirate Bay, Myspace, Skype, LinkedIn
 #### 2001 📖 Wikipedia, BitTorrent
 #### 1999 🎧 Napster
 #### 1998 💸 PayPal
