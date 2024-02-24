@@ -1,12 +1,14 @@
 ### Hi there 👋
 My name is **Subidit Nandy**.
 
-![image](Human.svg)
+![image](Folk.png)
 
 #### 2022 🤖 ChatGPT
 #### 2020 🦠 COVID-19
-#### 2016 💃 TikTok
-#### 2012 📚 MOOC (Massive open online courses)
+#### 2017 🦻 AirPods
+#### 2016 💃 TikTok 
+#### 2014 🗣️ Amazon Echo 
+#### 2012 📚 MOOC (Massive open online courses), Raspberry Pi
 #### 2011 📳 Snapchat, Google+
 #### 2010 🤳 Instagram
 #### 2009 💱 Bitcoin
