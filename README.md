@@ -8,17 +8,17 @@ My name is **Subidit Nandy**.
 #### 2017 🦻 AirPods
 #### 2016 💃 TikTok 
 #### 2014 🗣️ Amazon Echo 
-#### 2012 📚 MOOC (Massive open online courses), Raspberry Pi
+#### 2012 📚 MOOC, Raspberry Pi
 #### 2011 📳 Snapchat, Google+
-#### 2010 🤳 Instagram
+#### 2010 🤳 Instagram, iPad
 #### 2009 💱 Bitcoin
 #### 2008 📻 Spotify, Dropbox, GitHub
 #### 2007 📱 iPhone 
 #### 2006 ☁️ AWS, Twitter
-#### 2005 🗳️ Git, YouTube, Reddit
+#### 2005 🗳️ YouTube, Reddit, Git
 #### 2004 👀 Facebook, Flickr, Gmail
-#### 2003 🏴‍☠️ The Pirate Bay, Myspace, Skype, LinkedIn
-#### 2001 📖 Wikipedia, BitTorrent
+#### 2003 🏴‍☠️ Pirate Bay, Myspace, Skype, LinkedIn
+#### 2001 📖 Wikipedia, BitTorrent, iPod, Mac OS X
 #### 1999 🎧 Napster
 #### 1998 💸 PayPal
 #### 1997 🔎 Google
