@@ -1,4 +1,4 @@
-### Hi there 👋
+## Hi there 👋
 My name is **Subidit Nandy**.
 
 ![image](Folk.png)
