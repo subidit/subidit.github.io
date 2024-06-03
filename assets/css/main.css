@@ -1,0 +1,3 @@
+#theme-toggle {
+  transition: transform 0.3s ease; /* Add transition for smooth animation */
+}
