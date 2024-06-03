@@ -2,6 +2,11 @@ baseURL = 'https://subidit.github.io/'
 languageCode = 'en-us'
 title = 'Subidit Nandy'
 
+[services]
+  [services.googleAnalytics]
+    ID = 'G-HZ18T84KKG'
+
+
 [[menus.main]]
 name = 'Home'
 pageRef = '/'

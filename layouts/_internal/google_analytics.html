@@ -1,0 +1,10 @@
+{{- with site.Config.Services.GoogleAnalytics.ID }}
+  {{- if hugo.IsProduction }}
+  {{- $ga4 := resources.GetRemote "https://cdn.jsdelivr.net/npm/@minimal-analytics/ga4/dist/index.js" }}
+  {{- $track := resources.Get "js/track.js" }}
+  {{- $opts := dict "params" (dict "trackingId" . ) }}
+  {{- $track = $track | js.Build $opts -}}
+  {{- $stats := slice $track $ga4 | resources.Concat "js/analytics.js" | minify | fingerprint }}
+  <script src="{{ $stats.RelPermalink }}" integrity="{{ $stats.Data.Integrity }}"></script>
+  {{- end }}
+{{- end -}}
