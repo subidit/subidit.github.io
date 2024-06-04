@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home on Subidit Nandy</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content in Home on Subidit Nandy</description>
+    <title>Fonts on Subidit Nandy</title>
+    <link>http://localhost:1313/fonts/</link>
+    <description>Recent content in Fonts on Subidit Nandy</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 04 Jun 2024 22:35:35 +0600</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/fonts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Times</title>
       <link>http://localhost:1313/fonts/times/</link>

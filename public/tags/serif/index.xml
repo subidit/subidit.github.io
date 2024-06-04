@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home on Subidit Nandy</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content in Home on Subidit Nandy</description>
+    <title>Serif on Subidit Nandy</title>
+    <link>http://localhost:1313/tags/serif/</link>
+    <description>Recent content in Serif on Subidit Nandy</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 04 Jun 2024 22:35:35 +0600</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/serif/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Times</title>
       <link>http://localhost:1313/fonts/times/</link>
@@ -21,13 +21,6 @@
       <pubDate>Tue, 04 Jun 2024 22:02:34 +0600</pubDate>
       <guid>http://localhost:1313/fonts/garamond/</guid>
       <description>Garamond is a group of many serif typefaces, named for sixteenth-century Parisian engraver Claude Garamond, generally spelled as Garamont in his lifetime. Garamond-style typefaces are popular and particularly often used for book printing and body text.</description>
-    </item>
-    <item>
-      <title>Univers</title>
-      <link>http://localhost:1313/fonts/univers/</link>
-      <pubDate>Tue, 04 Jun 2024 21:39:49 +0600</pubDate>
-      <guid>http://localhost:1313/fonts/univers/</guid>
-      <description>The OG Helvetica. Univers was one of the first typeface families to fulfil the idea that a typeface should form a family of consistent, related designs.</description>
     </item>
   </channel>
 </rss>

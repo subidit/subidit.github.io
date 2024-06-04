@@ -2,29 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/tags/blue/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/green/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/post-3/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/red/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/serif/</loc>
+    <lastmod>2024-06-04T22:35:35+06:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
+    <lastmod>2024-06-04T22:35:35+06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/post-2/</loc>
-    <lastmod>2023-02-15T10:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/fonts/times/</loc>
+    <lastmod>2024-06-04T22:35:35+06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/post-1/</loc>
-    <lastmod>2023-01-15T09:00:00-07:00</lastmod>
+    <loc>http://localhost:1313/fonts/garamond/</loc>
+    <lastmod>2024-06-04T22:02:34+06:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2023-01-01T08:30:00-07:00</lastmod>
+    <loc>http://localhost:1313/tags/sans-serif/</loc>
+    <lastmod>2024-06-04T21:39:49+06:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/fonts/univers/</loc>
+    <lastmod>2024-06-04T21:39:49+06:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/fonts/</loc>
+    <lastmod>2024-06-04T21:31:10+06:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
