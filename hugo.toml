@@ -1,6 +1,7 @@
 baseURL = 'https://subidit.github.io/'
 languageCode = 'en-us'
 title = 'Subidit Nandy'
+summaryLength = 10
 
 [services]
   [services.googleAnalytics]

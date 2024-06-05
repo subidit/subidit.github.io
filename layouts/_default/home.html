@@ -6,4 +6,14 @@
     </div>
     <div id="hero-img"><img src="img/man.png" alt="Illustration"></div>
   </div>
+  <div class="grid">
+    {{ range first 3 .Site.RegularPages }}
+    <div>
+      <article>
+        <header><h4><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h4></header>
+        <p>{{ .Summary }}</p>
+      </article>
+    </div>
+    {{ end }}
+  </div>
 {{ end }}

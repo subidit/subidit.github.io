@@ -27,3 +27,13 @@
   display: block;
   margin: auto;
 }
+
+img[src*='#left'] {
+  float: left;
+  padding-right: 2%;
+  width: 50%;
+}
+img[src*='#right'] {
+  float: right;
+  width: 50%;
+}
