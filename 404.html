@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 · Subidit Nandy</title>
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Absolute paths: this page is served at any missing URL -->
+  <!-- PNG for Safari; SVG, which follows the system theme, for the rest -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <script>
+    // Runs before the first paint: sets the page's theme and
+    // the browser toolbar colour, and notes whether motion is allowed.
+    // ES5, so it runs in any browser.
+    (function () {
+      var root = document.documentElement;
+      // Must match --color-background in the stylesheet
+      var TOOLBAR_COLOURS = { dark: '#07081c', light: '#d8e9d6' };
+      // Must match STORAGE_KEY in the page script
+      var STORAGE_KEY = 'theme_preference';
+
+      // The saved theme, else the system setting
+      var theme = null;
+      try { theme = localStorage.getItem(STORAGE_KEY); } catch (e) { /* storage blocked */ }
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      root.setAttribute('data-theme', theme);
+
+      // Lets the stylesheet hide the tagline until the page script types it
+      if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+        root.classList.add('motion-ok');
+      }
+
+      var toolbarColour = document.createElement('meta');
+      toolbarColour.name = 'theme-color';
+      toolbarColour.id = 'toolbar-colour';
+      toolbarColour.content = TOOLBAR_COLOURS[theme];
+      document.head.appendChild(toolbarColour);
+    })();
+  </script>
+
+  <style>
+    /* Same styles in index.html and 404.html: change both together. */
+
+    /* --------------------------------------------------------------
+       Tokens
+       -------------------------------------------------------------- */
+    :root {
+      /* System font stacks: serif for display, sans for text */
+      --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
+      --font-sans: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+
+      /* Fluid base size, about 16.5px to 19.5px */
+      --font-size: clamp(1.031rem, 0.946rem + 0.364vw, 1.219rem);
+      --line-height: 1.55;
+      /* Line length of the text column, about 70 characters */
+      --measure: 36em;
+      /* Space between paragraphs */
+      --space: 1.25rem;
+      --radius: 2px;
+      /* Hairline thickness */
+      --hairline: 3px;
+      /* Size of the monogram and the theme toggle */
+      --control-size: 2.3rem;
+      --control-icon-size: 1.4rem;
+      --control-inset-block: 1.5rem;
+      --control-inset-inline: 1.75rem;
+    }
+
+    /* --------------------------------------------------------------
+       Themes. Colours are six-digit hex: the theme ripple adds them up
+       (see the page script), and plain values need no fallbacks.
+       Keep --color-background in step with the head script.
+       -------------------------------------------------------------- */
+    :root {
+      color-scheme: dark;
+      --color-background: #07081c;
+      --color-text: #d8e9d6;
+      /* Monogram and toggle icon */
+      --color-control: rgb(216 233 214 / 0.75);
+      /* Link underlines */
+      --color-underline: rgb(216 233 214 / 0.34);
+    }
+
+    [data-theme="light"] {
+      color-scheme: light;
+      --color-background: #d8e9d6;
+      --color-text: #07081c;
+      --color-control: rgb(7 8 28 / 0.75);
+      --color-underline: rgb(7 8 28 / 0.34);
+    }
+
+    /* --------------------------------------------------------------
+       Motion tokens. Every part animates for one duration on one curve,
+       on load and on a theme switch; only the start times differ.
+       -------------------------------------------------------------- */
+    :root {
+      --motion-duration: 0.9s;
+      --motion-ease: cubic-bezier(.25, .7, .3, 1);
+      --motion-spring: cubic-bezier(.34, 1.4, .64, 1);
+      /* Delays on load: between parts in reading order, between
+         paragraphs, and between the heading's letters */
+      --motion-step: 0.09s;
+      --paragraph-step: 0.22s;
+      --letter-step: 0.03s;
+      /* The hairlines draw across the whole load */
+      --hairline-duration: 2s;
+    }
+
+    /* --------------------------------------------------------------
+       Base
+       -------------------------------------------------------------- */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      min-height: 100%;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      font-size: var(--font-size);
+      line-height: var(--line-height);
+      font-kerning: normal;
+      font-variant-ligatures: common-ligatures;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    ::selection {
+      background-color: var(--color-text);
+      color: var(--color-background);
+    }
+
+    /* --------------------------------------------------------------
+       Frame: hairlines along the top and bottom of the screen
+       -------------------------------------------------------------- */
+    html::before,
+    html::after {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--hairline);
+      background-color: var(--color-text);
+      pointer-events: none;
+    }
+
+    html::before {
+      top: 0;
+      transform-origin: 0 50%;
+    }
+
+    html::after {
+      bottom: 0;
+      transform-origin: 100% 50%;
+    }
+
+    /* --------------------------------------------------------------
+       Stage: the page fills the screen, content centred. On larger
+       screens it is at least a 16:9 box in the middle.
+       -------------------------------------------------------------- */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: auto;
+      padding: 4.5rem 1.5rem 3.5rem;
+    }
+
+    @media (min-width: 768px) and (min-height: 520px) {
+      html {
+        display: flex;
+        align-items: center;
+        /* Keeps the top reachable if content overflows */
+        align-items: safe center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      body {
+        /* vh first for browsers without dvh. Width uses %, not vw, so it
+           leaves out the scrollbar. */
+        width: min(100%, calc(100vh * 16 / 9));
+        width: min(100%, calc(100dvh * 16 / 9));
+        min-height: min(100vh, calc(100vw * 9 / 16));
+        min-height: min(100dvh, calc(100vw * 9 / 16));
+        padding: 3.5rem 4rem;
+      }
+    }
+
+    /* --------------------------------------------------------------
+       Text column
+       -------------------------------------------------------------- */
+    main,
+    .colophon {
+      width: 100%;
+      max-width: var(--measure);
+      margin-inline: auto;
+    }
+
+    main {
+      margin-block: auto;
+    }
+
+    .colophon {
+      padding-top: 2rem;
+    }
+
+    /* --------------------------------------------------------------
+       Typography
+       -------------------------------------------------------------- */
+    .masthead {
+      margin-bottom: calc(var(--space) * 1.6);
+    }
+
+    /* rem + vw, so display sizes still scale with zoom */
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 1.6rem + 1.4vw, 2.9rem);
+      font-weight: 500;
+      line-height: 1.14;
+      letter-spacing: -0.022em;
+      margin-bottom: 0.4rem;
+      text-wrap: balance;
+    }
+
+    /* 404: a big number in old-style figures */
+    .not-found h1 {
+      font-size: clamp(3.2rem, 2rem + 5vw, 5.4rem);
+      font-variant-numeric: oldstyle-nums;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .tagline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 1rem + 0.6vw, 1.55rem);
+      font-style: italic;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      opacity: 0.82;
+    }
+
+    p {
+      margin-bottom: var(--space);
+      text-wrap: pretty;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .colophon p {
+      font-size: 0.78rem;
+      letter-spacing: 0.03em;
+      /* Keeps 4.5:1 contrast in both themes */
+      opacity: 0.62;
+    }
+
+    /* Links: underlined, the underline darkens on hover */
+    a {
+      color: inherit;
+      text-decoration-line: underline;
+      text-decoration-thickness: 0.055em;
+      text-decoration-color: var(--color-underline);
+      text-underline-offset: 0.16em;
+    }
+
+    a:hover,
+    a:active {
+      text-decoration-color: currentColor;
+    }
+
+    a:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 0.2em;
+      border-radius: var(--radius);
+      text-decoration-color: currentColor;
+    }
+
+    /* Heading letters, split so each can animate. Words stay whole when
+       the heading wraps. */
+    .word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .letter {
+      display: inline-block;
+      text-align: center;
+    }
+
+    /* Tagline typed out by the page script. The caret is always there, invisible
+       unless typing, so the line never shifts. */
+    .typewriter::after {
+      content: "";
+      display: inline-block;
+      width: 0.06em;
+      height: 0.95em;
+      margin-left: 0.06em;
+      vertical-align: -0.12em;
+      background-color: currentColor;
+      opacity: 0;
+    }
+
+    .typewriter.is-typing::after {
+      opacity: 1;
+    }
+
+    /* --------------------------------------------------------------
+       Corner controls: the monogram (top left) and the theme toggle
+       (top right). Absolute, so they scroll away on short screens.
+       -------------------------------------------------------------- */
+    .brand-mark,
+    .theme-toggle {
+      position: absolute;
+      top: var(--control-inset-block);
+      z-index: 1002;
+      display: grid;
+      place-items: center;
+      width: var(--control-size);
+      height: var(--control-size);
+      color: var(--color-control);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .brand-mark {
+      left: var(--control-inset-inline);
+    }
+
+    .theme-toggle {
+      right: var(--control-inset-inline);
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: none;
+      font: inherit;
+    }
+
+    .brand-mark svg,
+    .theme-toggle__icon {
+      display: block;
+      width: var(--control-icon-size);
+      height: var(--control-icon-size);
+      overflow: visible;
+    }
+
+    @media (max-width: 576px) {
+      :root {
+        --control-inset-block: 1.15rem;
+        --control-inset-inline: 1.15rem;
+      }
+    }
+
+    /* Monogram: one pen stroke along the letter's centreline, the same
+       shape as the filled favicon. pathLength="1" makes the dash maths
+       independent of the real length, for drawing it on. */
+    .brand-mark__stroke {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 48;
+      stroke-dasharray: 1 1;
+    }
+
+    /* Ring sent out by each click on the monogram */
+    .brand-mark__ripple {
+      position: absolute;
+      inset: 0;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Theme toggle. Hidden if the head script didn't run, since it couldn't work. */
+    html:not([data-theme]) .theme-toggle {
+      display: none;
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    @media (hover: hover) {
+      .theme-toggle:hover {
+        color: var(--color-text);
+      }
+    }
+
+    /* Its icon is a sun, or a moon for the dark theme: the clip carves the
+       crescent and the rays hide. The icon follows the reader's latest
+       choice (data-icon, set by the page script), which the page itself
+       catches up with once the ripples finish; until then, it follows the page. */
+    .theme-toggle__disc,
+    .theme-toggle__rays {
+      transform-origin: center;
+    }
+
+    .theme-toggle[data-icon="moon"] .theme-toggle__clip,
+    [data-theme="dark"] .theme-toggle:not([data-icon]) .theme-toggle__clip {
+      transform: translate(-9px, 15px);
+    }
+
+    .theme-toggle[data-icon="moon"] .theme-toggle__disc,
+    [data-theme="dark"] .theme-toggle:not([data-icon]) .theme-toggle__disc {
+      transform: scale(1.4);
+    }
+
+    .theme-toggle[data-icon="moon"] .theme-toggle__rays,
+    [data-theme="dark"] .theme-toggle:not([data-icon]) .theme-toggle__rays {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+
+    /* Theme ripple: a circle, grown by the page script from the click, that swaps
+       the two theme colours for everything under it. Its colour is the sum
+       of the two, and "difference" blending gives |x − sum|, which maps each
+       theme colour, and every mix of them, onto the other. Two ripples
+       cancel out, so overlapping ripples alternate light and dark. */
+    .theme-ripple {
+      position: fixed;
+      z-index: 2000;
+      border-radius: 50%;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    /* --------------------------------------------------------------
+       Utilities
+       -------------------------------------------------------------- */
+    /* Read by screen readers, not shown */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* --------------------------------------------------------------
+       Animation. Load plays each part in reading order (--order), one
+       --motion-step apart; paragraphs (--paragraph) and letters (--letter)
+       add their own steps. On a theme switch the page script sets --replay-start
+       instead: when the ripple reaches the part.
+       -------------------------------------------------------------- */
+    @media (prefers-reduced-motion: no-preference) {
+      .brand-mark__stroke,
+      .theme-toggle__icon {
+        --order: 0;
+      }
+
+      h1 {
+        --order: 1;
+      }
+
+      .tagline {
+        --order: 2;
+      }
+
+      main > p,
+      .colophon {
+        --order: 3;
+      }
+
+      /* Paragraph positions. The colophon comes last: each page sets its
+         --paragraph to the number of paragraphs. Add a rule for a page
+         with more than six. */
+      main > p:nth-of-type(2) { --paragraph: 1; }
+      main > p:nth-of-type(3) { --paragraph: 2; }
+      main > p:nth-of-type(4) { --paragraph: 3; }
+      main > p:nth-of-type(5) { --paragraph: 4; }
+      main > p:nth-of-type(6) { --paragraph: 5; }
+
+      .brand-mark__stroke,
+      .theme-toggle__icon,
+      .letter,
+      main > p,
+      .colophon {
+        --start: var(--replay-start, calc(var(--order) * var(--motion-step)));
+        animation-duration: var(--motion-duration);
+        animation-timing-function: var(--motion-ease);
+        animation-delay: calc(var(--start) + var(--paragraph, 0) * var(--paragraph-step));
+        animation-fill-mode: backwards;
+      }
+
+      /* During a switch, parts stay as they are until the ripple reaches
+         them, rather than disappearing to wait */
+      .is-replaying :is(.brand-mark__stroke, .letter, main > p, .colophon) {
+        animation-fill-mode: none;
+      }
+
+      /* Hairlines: the top one draws from the left, the bottom one from the
+         right. During a switch the ripples recolour them. */
+      html::before,
+      html::after {
+        animation: draw-hairline var(--hairline-duration) var(--motion-ease) backwards;
+      }
+
+      @keyframes draw-hairline {
+        from { transform: scaleX(0); }
+      }
+
+      /* Monogram: written on as one pen stroke */
+      .brand-mark__stroke {
+        animation-name: write-on;
+      }
+
+      @keyframes write-on {
+        from { stroke-dashoffset: 1; }
+        to   { stroke-dashoffset: 0; }
+      }
+
+      /* Toggle icon: turns and fades in */
+      .theme-toggle__icon {
+        animation-name: spin-in;
+      }
+
+      @keyframes spin-in {
+        from {
+          opacity: 0;
+          transform: rotate(-180deg) scale(0.5);
+        }
+      }
+
+      /* Its sun and moon morph into each other */
+      .theme-toggle__clip,
+      .theme-toggle__disc,
+      .theme-toggle__rays {
+        transition: transform 0.5s var(--motion-spring), opacity 0.3s ease;
+      }
+
+      /* Heading: a typeface roulette. Each letter flicks through other
+         typefaces, then settles into its own, left to right. The page script fixes
+         each letter's width so the line doesn't jitter. */
+      .letter {
+        animation-name: typeface-roulette;
+        animation-duration: calc(var(--motion-duration) * 0.6);
+        animation-timing-function: step-end;
+        animation-delay: calc(var(--start) + var(--letter) * var(--letter-step));
+      }
+
+      @keyframes typeface-roulette {
+        0%  { opacity: 0; }
+        8%  { opacity: 1; font-family: Didot, "Bodoni 72", "Bodoni MT", serif; font-weight: 400; font-style: normal; }
+        19% { font-family: Futura, "Century Gothic", "Trebuchet MS", sans-serif; font-weight: 700; font-style: normal; }
+        30% { font-family: "Courier New", Courier, monospace; font-weight: 400; font-style: normal; }
+        41% { font-family: "Snell Roundhand", "Brush Script MT", cursive; font-weight: 400; font-style: italic; }
+        52% { font-family: Impact, "Arial Black", sans-serif; font-weight: 900; font-style: normal; }
+        63% { font-family: "American Typewriter", Rockwell, serif; font-weight: 400; font-style: normal; }
+        74% { font-family: "Gill Sans", "Gill Sans MT", Optima, sans-serif; font-weight: 300; font-style: italic; }
+        85% { font-family: var(--font-serif); font-weight: 500; font-style: normal; }
+      }
+
+      /* Tagline: hidden until the page script starts typing it. Shown anyway
+         after 3s, in case it never runs. (.motion-ok is set by the head script.) */
+      .motion-ok .typewriter:not(.is-typing, .is-done) {
+        visibility: hidden;
+        animation: show-late 0s 3s forwards;
+      }
+
+      @keyframes show-late {
+        to { visibility: visible; }
+      }
+
+      /* The caret blinks twice when typing is done, then goes */
+      .typewriter.is-done::after {
+        animation: caret-blink-out 1.4s step-end;
+      }
+
+      @keyframes caret-blink-out {
+        0%, 50%  { opacity: 1; }
+        25%, 75% { opacity: 0; }
+      }
+
+      /* Body text: a soft-edged veil lifts down each paragraph as it
+         settles. The mask exists only while this runs; it is three times
+         the paragraph's height, clear at one end and solid at the other. */
+      main > p,
+      .colophon {
+        animation-name: unveil;
+      }
+
+      @keyframes unveil {
+        from {
+          opacity: 0.4;
+          transform: translateY(0.5rem);
+          -webkit-mask: linear-gradient(#000 40%, transparent 60%) 0 100% / 100% 300% no-repeat;
+          mask: linear-gradient(#000 40%, transparent 60%) 0 100% / 100% 300% no-repeat;
+        }
+        to {
+          opacity: 1;
+          transform: none;
+          -webkit-mask: linear-gradient(#000 40%, transparent 60%) 0 0 / 100% 300% no-repeat;
+          mask: linear-gradient(#000 40%, transparent 60%) 0 0 / 100% 300% no-repeat;
+        }
+      }
+    }
+
+    /* --------------------------------------------------------------
+       Accessibility
+       -------------------------------------------------------------- */
+    /* More contrast: full-strength text, controls and underlines */
+    @media (prefers-contrast: more) {
+      :root,
+      [data-theme="light"] {
+        --color-control: var(--color-text);
+        --color-underline: var(--color-text);
+      }
+
+      .tagline,
+      .colophon p {
+        opacity: 1;
+      }
+    }
+  </style>
+
+  <script type="module">
+    // The monogram, the heading and tagline entrances, and the theme switch.
+    // Same script in index.html and 404.html: change both together. A module,
+    // so it runs once the page has been parsed.
+
+    const root = document.documentElement;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    // Forced colours replace the palette, so the theme ripple couldn't work
+    const forcedColours = matchMedia('(forced-colors: active)');
+
+    // ------------------------------------------------------------------
+    // Helpers
+    // ------------------------------------------------------------------
+
+    /** A custom property holding a time ("0.9s" or "900ms"), in milliseconds. */
+    function cssTime(name, element = root) {
+      const value = getComputedStyle(element).getPropertyValue(name).trim();
+      return parseFloat(value) * (value.endsWith('ms') ? 1 : 1000);
+    }
+
+    /** A custom property holding a number, or 0. */
+    function cssNumber(name, element = root) {
+      return parseFloat(getComputedStyle(element).getPropertyValue(name)) || 0;
+    }
+
+    /** A custom property holding a six-digit hex colour, as [r, g, b]. */
+    function cssColour(name, element = root) {
+      const hex = getComputedStyle(element).getPropertyValue(name).trim();
+      return hex.slice(1).match(/../g).map((pair) => parseInt(pair, 16));
+    }
+
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    /** Gives every keyframe the same easing, unless it sets its own. */
+    const easeEach = (keyframes, easing = 'ease-in-out') =>
+      keyframes.map((keyframe) => ({ easing, ...keyframe }));
+
+    /**
+     * Plays an animation on top of the element's own transform. Such layers
+     * add up, so a second click can start before the first has finished.
+     */
+    const animateLayer = (element, keyframes, options) =>
+      element.animate(keyframes, { composite: 'add', ...options });
+
+    /** Time for a ripple of the given duration and radius to reach an element. */
+    function rippleArrival(element, x, y, radius, duration) {
+      const box = element.getBoundingClientRect();
+      // Distance from the ripple's centre to the element's nearest edge
+      const dx = Math.max(box.left - x, 0, x - box.right);
+      const dy = Math.max(box.top - y, 0, y - box.bottom);
+      // Ripples grow at a steady speed
+      return Math.min(Math.hypot(dx, dy) / radius, 1) * duration;
+    }
+
+    /** Restarts an element's CSS animations, including finished ones. */
+    function restartAnimations(elements) {
+      for (const element of elements) element.style.animationName = 'none';
+      void root.offsetWidth; // apply "none" before clearing it
+      for (const element of elements) element.style.animationName = '';
+    }
+
+    // ------------------------------------------------------------------
+    // Footer: the current year, in place of the one written in the page
+    // ------------------------------------------------------------------
+
+    const year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
+
+    // ------------------------------------------------------------------
+    // Heading: each letter keeps its own width while the typeface roulette
+    // (in the stylesheet) flicks other typefaces through it, so the line stays
+    // still. In em, so it scales with the heading.
+    // ------------------------------------------------------------------
+
+    const headingLetters = [...document.querySelectorAll('h1 .letter')];
+    for (const letter of headingLetters) {
+      const fontSize = parseFloat(getComputedStyle(letter).fontSize);
+      letter.style.width = `${letter.getBoundingClientRect().width / fontSize}em`;
+    }
+
+    // ------------------------------------------------------------------
+    // Tagline: a typewriter. It types the element's data-draft, pauses,
+    // backspaces to where the draft matches the real text, then types the
+    // rest: a typo gets corrected, an unfinished word gets finished.
+    // ------------------------------------------------------------------
+
+    const typewriter = document.querySelector('.typewriter');
+    const tagline = typewriter?.closest('.tagline');
+    const taglineText = typewriter?.textContent ?? '';
+    const taglineDraft = typewriter?.dataset.draft ?? taglineText;
+    const TYPING_MS = { keyMin: 28, keyMax: 66, space: 90, backspace: 60, rethink: 600 };
+    // Each run takes a number; starting a new run cancels the one before
+    let typingRun = 0;
+
+    const sharedLength = (a, b) => {
+      let length = 0;
+      while (length < a.length && a[length] === b[length]) length++;
+      return length;
+    };
+
+    /** Stops typing and shows the finished tagline. */
+    function finishTyping() {
+      if (!typewriter) return;
+      typingRun++;
+      typewriter.textContent = taglineText;
+      typewriter.classList.remove('is-typing');
+      typewriter.classList.add('is-done');
+    }
+
+    /** Types the tagline out, starting after a delay (the old line stays until then). */
+    async function typeTagline(delay) {
+      if (!typewriter || reducedMotion.matches) return;
+      const run = ++typingRun;
+      const cancelled = () => run !== typingRun;
+      let text = '';
+
+      // Types or deletes one character at a time; false if cancelled
+      const typeKeys = async (keys) => {
+        for (const key of keys) {
+          if (cancelled()) return false;
+          typewriter.textContent = text += key;
+          const { keyMin, keyMax, space } = TYPING_MS;
+          await wait(key === ' ' ? space : keyMin + Math.random() * (keyMax - keyMin));
+        }
+        return !cancelled();
+      };
+      const backspaceTo = async (length) => {
+        while (text.length > length) {
+          if (cancelled()) return false;
+          typewriter.textContent = text = text.slice(0, -1);
+          await wait(TYPING_MS.backspace);
+        }
+        return !cancelled();
+      };
+
+      await wait(delay);
+      if (cancelled()) return;
+      typewriter.textContent = '';
+      typewriter.classList.remove('is-done');
+      typewriter.classList.add('is-typing');
+
+      if (!(await typeKeys(taglineDraft))) return;
+      if (taglineDraft !== taglineText) {
+        await wait(TYPING_MS.rethink);
+        const keep = sharedLength(taglineDraft, taglineText);
+        if (!(await backspaceTo(keep))) return;
+        if (!(await typeKeys(taglineText.slice(keep)))) return;
+      }
+      typewriter.classList.replace('is-typing', 'is-done');
+    }
+
+    // On load, in its place in the reading order
+    if (tagline) typeTagline(cssNumber('--order', tagline) * cssTime('--motion-step'));
+
+    // ------------------------------------------------------------------
+    // Monogram: pressing sinks it under the finger; each click springs it
+    // a quarter turn and sends out a ring (and a tiny buzz, on phones that
+    // can). It looks the same turned half a circle, so its resting angle is
+    // only ever 0° (the monogram) or 90° (S); the spring plays on top as a
+    // layer, from a quarter turn back, so quick clicks stack.
+    // ------------------------------------------------------------------
+
+    const brandMark = document.querySelector('.brand-mark');
+    const brandIcon = brandMark?.querySelector('svg');
+    const brandStroke = brandMark?.querySelector('.brand-mark__stroke');
+    const PRESSED_SCALE = 0.8;
+    let brandAngle = 0;
+    let brandPress = null; // the press-down animation, while held
+
+    function pressBrandMark() {
+      if (reducedMotion.matches) return;
+      brandPress = animateLayer(
+        brandIcon,
+        [{ transform: 'scale(1)' }, { transform: `scale(${PRESSED_SCALE})` }],
+        { duration: 140, easing: 'cubic-bezier(.3, 0, .5, 1)', fill: 'forwards' }
+      );
+    }
+
+    /** Springs back up if it was let go without a click (say, dragged off). */
+    function releaseBrandMark() {
+      if (!brandPress) return;
+      brandPress.cancel();
+      brandPress = null;
+      animateLayer(
+        brandIcon,
+        [{ transform: `scale(${PRESSED_SCALE})` }, { transform: 'scale(1.06)' }, { transform: 'scale(1)' }],
+        { duration: 320, easing: 'ease-out' }
+      );
+    }
+
+    function sendBrandRipple() {
+      const ring = document.createElement('span');
+      ring.className = 'brand-mark__ripple';
+      brandMark.append(ring);
+      ring.animate(
+        [{ transform: 'scale(0.6)', opacity: 0.6 }, { transform: 'scale(2.6)', opacity: 0 }],
+        { duration: 650, easing: 'cubic-bezier(.2, .7, .3, 1)' }
+      ).finished.finally(() => ring.remove());
+    }
+
+    function turnBrandMark() {
+      brandAngle = (brandAngle + 90) % 180;
+      brandIcon.style.transform = `rotate(${brandAngle}deg)`;
+      if (reducedMotion.matches) return;
+
+      // Carry on from the pressed size, if it was pressed
+      const startScale = brandPress ? PRESSED_SCALE : 1;
+      brandPress?.cancel();
+      brandPress = null;
+      sendBrandRipple();
+      navigator.vibrate?.(8);
+      animateLayer(brandIcon, easeEach([
+        { offset: 0, transform: `rotate(-90deg) scale(${startScale})`, easing: 'cubic-bezier(.2, .8, .3, 1)' },
+        { offset: 0.35, transform: 'rotate(14deg) scale(1.12)' },
+        { offset: 0.6, transform: 'rotate(-6deg) scale(0.98)' },
+        { offset: 0.8, transform: 'rotate(2deg) scale(1.01)' },
+        { offset: 1, transform: 'rotate(0deg) scale(1)' }
+      ]), { duration: 700 });
+    }
+
+    if (brandMark && brandIcon) {
+      brandMark.addEventListener('pointerdown', pressBrandMark);
+      brandMark.addEventListener('click', turnBrandMark);
+      // A click, if one comes, follows pointerup at once; otherwise let go
+      brandMark.addEventListener('pointerup', () => setTimeout(releaseBrandMark));
+      brandMark.addEventListener('pointercancel', releaseBrandMark);
+      brandMark.addEventListener('pointerleave', (event) => {
+        if (event.pointerType === 'mouse') releaseBrandMark();
+      });
+    }
+
+    // ------------------------------------------------------------------
+    // Theme: the toggle sends a ripple from the click that swaps light and
+    // dark under it (see .theme-ripple in the stylesheet); quick clicks send
+    // several, which alternate. When a ripple has covered the screen, the
+    // page's own theme flips and the ripple goes, in the same frame, so
+    // nothing visibly changes. The first ripple of a burst also replays the
+    // page: each part plays its load animation as the ripple reaches it.
+    // ------------------------------------------------------------------
+
+    const toggle = document.getElementById('theme-toggle');
+    const toggleLabel = document.getElementById('theme-toggle-label');
+    const toggleIcon = toggle?.querySelector('.theme-toggle__icon');
+    const toolbarColour = document.getElementById('toolbar-colour');
+    const systemLight = matchMedia('(prefers-color-scheme: light)');
+    // Must match STORAGE_KEY in the head script
+    const STORAGE_KEY = 'theme_preference';
+    // Ripples grow at a steady speed, so the bands between quick clicks stay
+    // even; longer makes them slower and the bands thinner
+    const RIPPLE_MS = 1400;
+
+    const otherTheme = (theme) => (theme === 'dark' ? 'light' : 'dark');
+    // The theme the reader chose last; the page catches up as ripples finish
+    let chosenTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
+    let ripplesInFlight = 0;
+    let replayCleanup = null;
+
+    // localStorage throws when site data is blocked
+    function readSavedTheme() {
+      try { return localStorage.getItem(STORAGE_KEY); } catch { return null; }
+    }
+
+    function saveTheme(theme) {
+      try { localStorage.setItem(STORAGE_KEY, theme); } catch { /* storage blocked */ }
+    }
+
+    /** Sets the page's theme, and the toolbar colour to its background. */
+    function applyTheme(theme) {
+      root.dataset.theme = theme;
+      const [r, g, b] = cssColour('--color-background');
+      toolbarColour?.setAttribute('content', `rgb(${r} ${g} ${b})`);
+    }
+
+    /** Points the toggle's label and icon at the reader's latest choice. */
+    function updateToggle() {
+      toggleLabel.textContent = chosenTheme === 'dark' ? 'Turn on light mode' : 'Turn on dark mode';
+      toggle.dataset.icon = chosenTheme === 'dark' ? 'moon' : 'sun';
+    }
+
+    /** The colour that swaps the themes under "difference" blending: the sum
+        of background and text, per channel (each sum must stay within 255). */
+    function rippleColour() {
+      const background = cssColour('--color-background');
+      const text = cssColour('--color-text');
+      return `rgb(${background.map((channel, i) => channel + text[i]).join(' ')})`;
+    }
+
+    // Parts that replay, timed by --replay-start; the heading's letters
+    // inherit it from the heading
+    const replayedParts = () => [
+      brandStroke, ...document.querySelectorAll('h1, main > p, .colophon')
+    ].filter(Boolean);
+    const animatedParts = () => [...replayedParts(), ...headingLetters];
+
+    /** Ends a replay at once: every part finished, the tagline typed. */
+    function finishReplay() {
+      for (const part of animatedParts()) {
+        for (const animation of part.getAnimations()) animation.finish();
+      }
+      finishTyping();
+    }
+
+    function endReplay() {
+      root.classList.remove('is-replaying');
+      for (const part of replayedParts()) part.style.removeProperty('--replay-start');
+    }
+
+    /** Replays the page as a ripple from (x, y) reaches each part. */
+    function replayPage(x, y, radius) {
+      finishReplay();
+      root.classList.add('is-replaying');
+      const arrival = (element) => rippleArrival(element, x, y, radius, RIPPLE_MS);
+
+      // The paragraphs start together, when it reaches the first, then take
+      // turns as on load
+      const firstParagraph = document.querySelector('main > p');
+      const bodyStart = firstParagraph ? arrival(firstParagraph) : 0;
+      for (const part of replayedParts()) {
+        const start = part.matches('main > p, .colophon') ? bodyStart : arrival(part);
+        part.style.setProperty('--replay-start', `${start}ms`);
+      }
+      if (typewriter) typeTagline(arrival(typewriter));
+      restartAnimations(animatedParts());
+
+      const paragraphs = document.querySelectorAll('main > p').length;
+      clearTimeout(replayCleanup);
+      replayCleanup = setTimeout(endReplay,
+        RIPPLE_MS + cssTime('--motion-duration') + paragraphs * cssTime('--paragraph-step'));
+    }
+
+    /** Shrinks the toggle icon and spins it a full turn; spins stack. */
+    function spinToggleIcon() {
+      animateLayer(toggleIcon, easeEach([
+        { offset: 0, transform: 'rotate(-360deg) scale(1)' },
+        { offset: 0.3, transform: 'rotate(-220deg) scale(0.6)' },
+        { offset: 0.65, transform: 'rotate(16deg) scale(1.1)' },
+        { offset: 0.85, transform: 'rotate(-5deg) scale(0.98)' },
+        { offset: 1, transform: 'rotate(0deg) scale(1)' }
+      ]), { duration: 800 });
+    }
+
+    /** Grows a ripple from (x, y) to the far corner, then makes its swap real. */
+    function sendThemeRipple(x, y, radius) {
+      const ripple = document.createElement('div');
+      ripple.className = 'theme-ripple';
+      Object.assign(ripple.style, {
+        left: `${x - radius}px`,
+        top: `${y - radius}px`,
+        width: `${radius * 2}px`,
+        height: `${radius * 2}px`,
+        backgroundColor: rippleColour()
+      });
+      document.body.append(ripple);
+      ripplesInFlight++;
+
+      ripple.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], { duration: RIPPLE_MS, easing: 'linear' })
+        .finished.then(() => {
+          applyTheme(otherTheme(root.dataset.theme));
+          ripple.remove();
+          ripplesInFlight--;
+        });
+    }
+
+    /** Switches to the other theme, with a ripple from (x, y). */
+    function switchTheme(x, y) {
+      chosenTheme = otherTheme(chosenTheme);
+      updateToggle();
+      if (reducedMotion.matches || forcedColours.matches) return applyTheme(chosenTheme);
+
+      spinToggleIcon();
+      // Far enough to reach the farthest corner of the screen
+      const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      if (!ripplesInFlight) replayPage(x, y, radius);
+      sendThemeRipple(x, y, radius);
+    }
+
+    function toggleCentre() {
+      const box = toggle.getBoundingClientRect();
+      return [box.left + box.width / 2, box.top + box.height / 2];
+    }
+
+    if (toggle && toggleLabel && toggleIcon) {
+      applyTheme(chosenTheme);
+      updateToggle();
+
+      toggle.addEventListener('click', (event) => {
+        // From the pointer, or from the centre for a keyboard press (detail 0)
+        // or a pointer position outside the button
+        const box = toggle.getBoundingClientRect();
+        const onButton = event.clientX >= box.left && event.clientX <= box.right &&
+                         event.clientY >= box.top && event.clientY <= box.bottom;
+        const [x, y] = event.detail > 0 && onButton ? [event.clientX, event.clientY] : toggleCentre();
+        switchTheme(x, y);
+        saveTheme(chosenTheme);
+      });
+
+      // Follow the system theme until the reader picks one
+      systemLight.addEventListener('change', (event) => {
+        const systemTheme = event.matches ? 'light' : 'dark';
+        if (!readSavedTheme() && systemTheme !== chosenTheme) switchTheme(...toggleCentre());
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <header>
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 256 256"><path class="brand-mark__stroke" pathLength="1" d="M24 0V180A52 52 0 0 0 128 180V76A52 52 0 0 1 232 76V256" /></svg>
+    </span>
+
+    <button class="theme-toggle" id="theme-toggle" type="button">
+      <span class="sr-only" id="theme-toggle-label">Turn on light mode</span>
+      <svg class="theme-toggle__icon" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <defs>
+          <clipPath id="theme-toggle-clip">
+            <path class="theme-toggle__clip" d="M0-11h25a1 1 0 0017 13v30H0Z" />
+          </clipPath>
+        </defs>
+        <g clip-path="url(#theme-toggle-clip)">
+          <circle class="theme-toggle__disc" cx="16" cy="16" r="8.4" />
+          <path class="theme-toggle__rays" d="M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z" />
+        </g>
+      </svg>
+    </button>
+  </header>
+
+  <main class="not-found">
+    <header class="masthead">
+      <h1>
+        <span class="sr-only">404</span>
+        <span aria-hidden="true"><span class="letter" style="--letter: 0">4</span><span class="letter" style="--letter: 1">0</span><span class="letter" style="--letter: 2">4</span></span>
+      </h1>
+      <p class="tagline" role="doc-subtitle">
+        <span class="sr-only">Another thing I didn’t finish</span>
+        <span class="typewriter" aria-hidden="true" data-draft="Another thing I didn’t fini">Another thing I didn’t finish</span>
+      </p>
+    </header>
+
+    <p>
+      There’s nothing at this address. It does load very quickly, though.
+    </p>
+
+    <p>
+      <a href="/">Back to the start</a>
+    </p>
+  </main>
+
+  <!-- --paragraph: the number of paragraphs, so it arrives after them -->
+  <footer class="colophon" style="--paragraph: 2">
+    <p>&copy; <span id="year">2026</span> Subidit Nandy</p>
+  </footer>
+
+</body>
+</html>
