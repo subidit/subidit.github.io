@@ -1,0 +1,355 @@
+/* ==========================================================================
+   CSS-only version — no JavaScript.
+   The first-panel (wordmark → header) and last-panel (header → full wordmark)
+   animations use CSS scroll-driven animations: two view timelines drive two
+   registered number properties, --p and --e, and everything is derived from them.
+   ========================================================================== */
+
+/* --p: 0 = wordmark fills the hero, 1 = docked in the header
+   --e: 0 = docked in the header,    1 = full size at the top of the footer */
+@property --p { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --e { syntax: "<number>"; inherits: true; initial-value: 0; }
+/* type specimen axes — registered so they animate, and --wght is an integer so it can feed a counter */
+@property --wght { syntax: "<integer>"; inherits: true; initial-value: 400; }
+
+:root {
+  /* Muted pastels, picked in OKLCH so every pane has the same perceived
+     lightness (L .88, chroma ~.04) — only the hue changes as you scroll:
+     warm paper → rose → sage → mist → lilac → back to paper.
+     Each pane's text is a deep shade of its own hue (all ≥ 9:1 contrast). */
+  --paper: #f4eee1;  --paper-ink: #2b221a;   /* oklch(.95 .018 85) — hero + footer bookends */
+  --rose:  #f2cec5;  --rose-ink:  #43241c;   /* oklch(.88 .042 35) */
+  --sage:  #cadec6;  --sage-ink:  #1f3420;   /* oklch(.88 .040 140) */
+  --mist:  #c5dbee;  --mist-ink:  #192f46;   /* oklch(.88 .035 245) */
+  --lilac: #e1d0e9;  --lilac-ink: #37263f;   /* oklch(.88 .038 315) */
+  --butter: #f5e3b3;                         /* hero accent only */
+  --g: clamp(16px, 2.6vw, 44px);
+  /* Type: EB Garamond does all the talking (wordmark, statements, list); DM Mono
+     does the bookkeeping (labels, nav, numbers). Two voices, clearly split. */
+  --serif: "EB Garamond", Garamond, "Times New Roman", Times, serif;
+  --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* the wordmark is ~5.44em wide (EB Garamond 400, -0.02em tracking) */
+  --ratio: 5.44;
+  --big: calc((100vw - 2 * var(--g)) / var(--ratio));
+  --small: calc(clamp(92px, 9.5vw, 150px) / var(--ratio));
+  timeline-scope: --hero, --foot; /* lets the fixed chrome read timelines of sections */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--paper); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--paper-ink);
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+main { overflow-x: clip; }
+a { color: inherit; text-decoration: none; }
+p, ol, ul { margin: 0; }
+ol, ul { list-style: none; padding: 0; }
+img { display: block; max-width: 100%; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.label { font-family: var(--mono); font-size: 12px; line-height: 1.3; font-weight: 400; letter-spacing: .04em; text-transform: uppercase; }
+.label__num {
+  display: inline-block; margin-right: .6em; padding: .1em .55em .05em;
+  border: 1px solid currentColor; border-radius: 99px;
+}
+
+/* ==========================================================================
+   Fixed chrome
+   ========================================================================== */
+.chrome {
+  position: fixed; inset: 0; z-index: 50;
+  pointer-events: none;
+  /* Hillary Coe-style: a white wordmark in difference mode, so every pane edge,
+     blob and illustration line cuts right through the letters. White minus a
+     pastel is its dark complement (rose → deep teal, sage → plum, mist → brown,
+     lilac → forest), and black lines inside the letters flip to white. */
+  color: #fff;
+  mix-blend-mode: difference;
+
+  animation: dock linear both, undock linear both;
+  animation-timeline: --hero, --foot;
+  animation-range: cover 50% cover 100%, cover 0% cover 50%;
+}
+@keyframes dock   { to { --p: 1; } }
+@keyframes undock { to { --e: 1; } }
+
+.header {
+  position: absolute; top: var(--g); left: var(--g); right: var(--g);
+  display: flex; justify-content: space-between; align-items: flex-start;
+  font-family: var(--mono); font-size: 12px; line-height: 1.4; font-weight: 400; letter-spacing: .04em; text-transform: uppercase;
+  /* fades in as the wordmark lands, fades out as the footer takes over */
+  opacity: calc(clamp(0, (var(--p) - .85) * 7, 1) * (1 - clamp(0, var(--e) * 4, 1)));
+  pointer-events: auto;
+}
+.header__left { display: flex; flex-direction: column; }
+.header a:hover { text-decoration: underline; }
+
+.logo {
+  --P: calc(var(--p) * (1 - var(--e)));   /* 1 only while docked */
+  position: absolute; left: 50%;
+  /* centred in the hero → top gutter (and it stays there while it grows in the footer) */
+  top: calc((50% - .4 * var(--big)) * (1 - var(--p)) + var(--g) * var(--p));
+  translate: -50% 0;
+  font-size: calc(var(--big) * (1 - var(--P)) + var(--small) * var(--P));
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: .8;
+  letter-spacing: -.02em;
+  padding-right: .02em;
+  white-space: nowrap;
+}
+
+/* Browsers without scroll-driven animations: the wordmark simply sits in the hero */
+@supports not (animation-timeline: view()) {
+  .chrome { position: absolute; height: 100svh; }
+  .header { opacity: 1; }
+}
+
+/* ==========================================================================
+   First panel
+   ========================================================================== */
+.hero {
+  position: relative;
+  height: 100vh; height: 100svh;
+  background: var(--paper);
+  view-timeline-name: --hero;
+}
+.hero { overflow: clip; isolation: isolate; }
+.hero__meta, .hero__scroll { position: absolute; bottom: var(--g); }
+
+/* Lava lamp: five pastel blobs that morph, drift and melt into each other
+   (normal blending — multiply turned the overlaps muddy), then spread out
+   and fade as the hero scrolls away. */
+.hero__blobs {
+  position: absolute; inset: 0; z-index: -1;
+  filter: blur(clamp(24px, 4vw, 60px));
+  animation: blobs-out linear both;
+  animation-timeline: view();
+  animation-range: exit 0% exit 100%;
+}
+@keyframes blobs-out { to { opacity: 0; scale: 1.35; } }
+.hero__blobs i {
+  position: absolute;
+  width: var(--s); aspect-ratio: 1;
+  left: var(--x); top: var(--y);
+  background: var(--c);
+  opacity: .85;
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+  animation:
+    morph var(--m) ease-in-out infinite alternate,
+    drift var(--d) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+}
+.hero__blobs i:nth-child(1) { --c: var(--rose);  --s: 46vmax; --x: -8%;  --y: -14%; --m: 6s;  --d: 10s; --dx: 18vw;  --dy: 22vh; }
+.hero__blobs i:nth-child(2) { --c: var(--sage);  --s: 38vmax; --x: 62%;  --y: -10%; --m: 7s;  --d: 13s; --dx: -22vw; --dy: 28vh; --delay: -6s; }
+.hero__blobs i:nth-child(3) { --c: var(--mist);  --s: 42vmax; --x: 48%;  --y: 52%;  --m: 5s;  --d: 11s; --dx: -30vw; --dy: -18vh; --delay: -3s; }
+.hero__blobs i:nth-child(4) { --c: var(--lilac); --s: 34vmax; --x: 2%;   --y: 58%;  --m: 8s;  --d: 14s; --dx: 26vw;  --dy: -24vh; --delay: -11s; }
+.hero__blobs i:nth-child(5) { --c: var(--butter); --s: 22vmax; --x: 34%;  --y: 22%;  --m: 4s;  --d: 8s;  --dx: 16vw;  --dy: 20vh; --delay: -8s; } /* butter accent */
+@keyframes morph {
+  33%  { border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%; }
+  66%  { border-radius: 38% 62% 36% 64% / 62% 35% 65% 38%; }
+  100% { border-radius: 55% 45% 40% 60% / 38% 63% 37% 62%; }
+}
+@keyframes drift {
+  50%  { translate: calc(var(--dx) * .6) calc(var(--dy) * -.4); rotate: 120deg; scale: 1.15; }
+  100% { translate: var(--dx) var(--dy); rotate: 240deg; scale: .9; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__blobs i { animation: none; }
+}
+.hero__meta { left: var(--g); }
+/* echoes the italic serif tagline on subidit.com */
+.hero__tagline { font-style: italic; font-weight: 400; font-size: clamp(20px, 1.8vw, 28px); line-height: 1; }
+.hero__scroll { right: var(--g); }
+
+/* ==========================================================================
+   Static panes (palette, no animation)
+   ========================================================================== */
+.pane {
+  min-height: 100vh; min-height: 100svh;
+  padding: calc(var(--g) + 90px) var(--g) var(--g);
+  display: flex; flex-direction: column; gap: 6vh;
+}
+.pane--rose  { background: var(--rose);  color: var(--rose-ink); }
+.pane--sage  { background: var(--sage);  color: var(--sage-ink); }
+.pane--mist  { background: var(--mist);  color: var(--mist-ink); }
+.pane--lilac { background: var(--lilac); color: var(--lilac-ink); }
+
+.pane__grid { flex: 1; display: grid; grid-template-columns: 7fr 5fr; gap: var(--g); align-items: center; }
+.pane__big {
+  font-size: clamp(30px, 4.1vw, 70px); font-weight: 400; line-height: 1.08; letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+.pane__big em { font-style: italic; }
+
+/* "fonts" can't sit still: it cycles through the weight axis. A hidden heavy copy
+   reserves the widest width so the rest of the sentence never reflows. */
+.w-fonts { display: inline-grid; }
+.w-fonts > span, .w-fonts::after { grid-area: 1 / 1; }
+.w-fonts::after { content: attr(data-w); font-weight: 800; visibility: hidden; }
+.w-fonts > span {
+  font-weight: var(--wght);
+  animation: axes 5s ease-in-out infinite;
+}
+/* "flags" and "films" get little drawn companions */
+.w-icon { white-space: nowrap; }
+.ico {
+  width: .62em; height: .62em; margin-left: .08em; vertical-align: .55em;
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  overflow: visible;
+}
+.flag-cloth { transform-box: fill-box; transform-origin: left center; animation: wave 1.4s ease-in-out infinite alternate; }
+@keyframes wave { to { transform: skewY(-10deg) scaleX(.9); } }
+.ico--film { animation: flicker 2.4s steps(1) infinite; }
+@keyframes flicker { 50% { rotate: -6deg; } }
+
+/* typeface vs font, set as exactly that: a typeface (italic Garamond) and a font (a monospaced file) */
+.w-typeface { font-style: italic; }
+.w-font {
+  font-family: var(--mono); font-size: .72em; letter-spacing: -.02em; vertical-align: .08em;
+  padding: .02em .28em; border: 1px dashed currentColor; border-radius: .2em;
+}
+
+/* Specimen: nobody asked, so it answers anyway — one typeface, endless fonts.
+   The live wght readout is a counter fed by the animated integer --wght. */
+.specimen {
+  margin: 0; justify-self: center; width: min(100%, 460px); aspect-ratio: 1;
+  display: grid; grid-template-rows: 1fr auto;
+  padding: clamp(14px, 1.6vw, 22px);
+  border: 1.5px solid currentColor; border-radius: clamp(18px, 2vw, 28px);
+  container-type: inline-size;
+  animation: axes 5s ease-in-out infinite;
+}
+.specimen__glyph {
+  place-self: center;
+  font-size: 62cqi; line-height: 1; letter-spacing: -.03em;  /* scales with the card */
+  font-weight: var(--wght);
+  animation: slant 10s steps(1) infinite;
+}
+.specimen__cap {
+  display: flex; justify-content: space-between; gap: 8px;
+  padding-top: 12px; border-top: 1px solid currentColor;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+}
+.specimen__readout { counter-reset: w var(--wght); font-variant-numeric: tabular-nums; }
+.specimen__readout::before { content: "wght " counter(w); }
+@keyframes axes {
+  0%, 100% { --wght: 400; }
+  50%      { --wght: 800; }
+}
+@keyframes slant { 50% { font-style: italic; } }
+.pane__art { width: 100%; max-width: 520px; justify-self: center; }
+
+/* Line drawings, inked in the pane's own colour with the same pen as the icons */
+.art {
+  display: block; overflow: visible;
+  fill: none; stroke: currentColor; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round;
+}
+.art path, .art circle, .art ellipse { vector-effect: non-scaling-stroke; }
+.art__ground { opacity: .45; }
+.art__reel { transform-box: fill-box; transform-origin: center; animation: spin 24s linear infinite; }
+@keyframes spin { to { rotate: 1turn; } }
+.art__cloth { transform-box: fill-box; transform-origin: left center; animation: wave 1.8s ease-in-out infinite alternate; }
+.art__spark { animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 50% { opacity: .2; } }
+.art__steam { stroke-dasharray: 14 10; animation: steam 2.4s linear infinite; opacity: .8; }
+.art__steam--2 { animation-delay: -.8s; }
+.art__steam--3 { animation-delay: -1.6s; }
+@keyframes steam { to { stroke-dashoffset: -48; } }
+.art__pencil { animation: doodle 3s ease-in-out infinite alternate; }
+@keyframes doodle { to { translate: -4px 3px; } }
+.art__trail { stroke-dasharray: 3 9; opacity: .7; }
+.art__plane { animation: glide 4s ease-in-out infinite alternate; }
+@keyframes glide { to { translate: 6px -10px; rotate: -3deg; } }
+
+.pane__lede { font-size: clamp(20px, 2vw, 32px); font-style: italic; font-weight: 400; line-height: 1.25; max-width: 30ch; }
+.pane__list { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.pane__list li {
+  display: grid; grid-template-columns: clamp(2.5rem, 7vw, 7rem) 1fr auto; align-items: center; gap: var(--g);
+  padding: 2vh 0; border-top: 1px solid currentColor;
+  font-size: clamp(32px, 4.8vw, 84px); font-weight: 400; letter-spacing: -.015em; line-height: 1;
+}
+.li__num { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+.li__text { transition: translate .4s cubic-bezier(.3, 1.4, .5, 1); }
+.li__ico {
+  width: clamp(40px, 4.6vw, 72px); height: clamp(40px, 4.6vw, 72px);
+  fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+  transition: rotate .5s cubic-bezier(.3, 1.8, .5, 1), scale .5s cubic-bezier(.3, 1.8, .5, 1);
+}
+.pane__list li:hover .li__text { font-style: italic; translate: .25em 0; }
+.pane__list li:hover .li__ico { rotate: -12deg; scale: 1.15; }
+.pane__list li:last-child { border-bottom: 1px solid currentColor; }
+
+/* "amateur" gets underlined by hand — the scribble draws itself as it scrolls in */
+.scribble { position: relative; white-space: nowrap; font-style: italic; }
+.scribble::after {
+  content: ""; position: absolute; left: -4%; right: -4%; bottom: -.16em; height: .32em;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 24' preserveAspectRatio='none'%3E%3Cpath d='M4 14c28-9 48 5 78-3s56-7 82 0 22 3 32-5M20 19c40-5 90-6 150-3' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  animation: draw linear both;
+  animation-timeline: view();
+  animation-range: entry 80% cover 55%;
+}
+@keyframes draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* ==========================================================================
+   Last panel
+   ========================================================================== */
+.footer {
+  height: 100vh; height: 100svh;
+  min-height: 520px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding: var(--g);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  view-timeline-name: --foot;
+}
+.footer__space { grid-column: 1 / -1; height: calc(.8 * var(--big) + var(--g)); }
+.footer__main { align-self: center; }
+/* The link slides up into the middle of the screen as the footer arrives */
+@supports (animation-timeline: view()) {
+  .footer__main, .footer__art {
+    animation: rise linear both;
+    animation-timeline: --foot;
+    animation-range: cover 15% cover 50%;
+  }
+}
+@keyframes rise { from { opacity: 0; translate: 0 35vh; } }
+.footer__link {
+  display: inline-block; margin-top: 14px;
+  font-size: clamp(32px, 4.8vw, 84px); font-weight: 400; letter-spacing: -.015em; line-height: 1.1;
+  text-decoration: underline wavy; text-decoration-thickness: .04em; text-underline-offset: .2em;
+  transition: font-weight .4s ease;
+}
+.footer__link span { display: inline-block; transition: translate .4s cubic-bezier(.3, 1.6, .5, 1); }
+.footer__link:hover { font-weight: 600; }
+.footer__link:hover span { translate: .12em -.12em; }
+.footer__art { align-self: center; width: clamp(160px, 22vw, 340px); }
+.footer__bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px var(--g); border-top: 1px solid currentColor; padding-top: 14px; }
+
+@media (max-width: 767px) {
+  .pane__grid { grid-template-columns: 1fr; }
+  .pane__art { max-width: min(70%, 320px); }
+  .pane__list li { grid-template-columns: 2.2em 1fr auto; gap: 12px; }
+  /* Footer stacks: wordmark space → illustration fills the gap → link → meta row */
+  .footer { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; }
+  .footer__main { grid-row: 2; }
+  .footer__art { grid-row: 3; align-self: end; justify-self: end; width: min(44vw, 180px); padding-bottom: 3vh; }
+  .footer__link { font-size: clamp(28px, 9vw, 40px); overflow-wrap: anywhere; }
+  .footer__bottom { grid-row: 4; flex-wrap: wrap; }
+  .footer__colophon { order: 3; flex-basis: 100%; opacity: .7; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .w-fonts > span, .specimen, .specimen__glyph, .flag-cloth, .ico--film,
+  .art__reel, .art__cloth, .art__spark, .art__steam, .art__pencil, .art__plane { animation: none; }
+  .scribble::after { animation: none; clip-path: none; }
+  .footer__main, .footer__art { animation: none; }
+}
