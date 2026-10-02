@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Watches · Subidit Nandy</title>
+  <meta name="description" content="Why a small machine that does one job, slowly, for years, is worth caring about.">
+  <meta name="author" content="Subidit Nandy">
+  <link rel="canonical" href="https://subidit.com/watches/">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#4b2a23">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://subidit.com/watches/">
+  <meta property="og:title" content="Watches · Subidit Nandy">
+  <meta property="og:description" content="Why a small machine that does one job, slowly, for years, is worth caring about.">
+  <meta property="og:image" content="https://subidit.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/eb-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+
+  <script>
+    // Runs before first paint: pins --screen to one screen's height (on touch
+    // screens only re-measured when the width changes, so the toolbar sliding
+    // doesn't resize the page), and adds .is-ready once the fonts are in.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var touch = window.matchMedia('(pointer: coarse)').matches;
+      var lastWidth = 0;
+      function measure() {
+        var w = window.innerWidth;
+        if (touch && w === lastWidth) return;
+        lastWidth = w;
+        root.style.setProperty('--screen', window.innerHeight + 'px');
+      }
+      measure();
+      window.addEventListener('resize', measure);
+      function ready() { root.classList.add('is-ready'); }
+      if (!document.fonts || !document.fonts.load) return ready();
+      Promise.race([
+        Promise.all([
+          document.fonts.load('400 1em "EB Garamond"'),
+          document.fonts.load('italic 400 1em "EB Garamond"')
+        ]),
+        new Promise(function (resolve) { setTimeout(resolve, 2500); })
+      ]).then(ready, ready);
+    })();
+  </script>
+
+  <!-- Analytics -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="gu mu yu bu ku init Vu Gu zu Uu Ku el Wu Yu ju rh oh ah uh hh dh capture getExtension Zu fu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh Su xu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug il Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_ozm72vTREGkmvQ9yHTyp924ZZ6Fa988D4JEPU9XNR8oZ', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+    })
+</script>
+</head>
+<body class="pane--rose">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-watch" viewBox="0 0 48 48"><path d="M18 5h12l1.6 8.4M18 5l-1.6 8.4M18 43h12l1.6-8.4M18 43l-1.6-8.4"/><path d="M20 8.5h8M20 39.5h8"/><circle cx="24" cy="24" r="11.5"/><circle cx="24" cy="24" r="8.5"/><path d="M24 15.5v1.8M32.5 24h-1.8M24 32.5v-1.8M15.5 24h1.8"/><path d="M24 24v-5.5M24 24l3.6 2.2"/><path d="M35.5 22h2.5a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-.8.8h-2.5"/></symbol>
+    </defs>
+  </svg>
+
+  <main class="thing">
+    <header class="thing-head label">
+      <a href="/#things"><span class="arr arr--left" aria-hidden="true"></span> Subidit Nandy</a>
+      <span>Things made with care · i / v</span>
+    </header>
+
+    <section class="thing__hero">
+      <h1 class="thing__title"><span style="--n:0">Watches</span></h1>
+      <svg class="thing__ico" aria-hidden="true"><use href="#i-watch"/></svg>
+      <p class="pane__lede thing__lede">A watch is a small machine that does one job, slowly, for years, and I find that unreasonably moving.</p>
+    </section>
+
+    <section class="thing__notes" aria-label="Notes">
+      <div class="thing__note">
+        <p class="label"><span class="label__num">01</span> Why</p>
+        <p class="pane__big">Your phone keeps better time. A mechanical watch is a couple of hundred tiny parts agreeing with each other, wound by your wrist, and it will <em>still be agreeing</em> long after the phone is landfill.</p>
+      </div>
+      <div class="thing__note">
+        <p class="label"><span class="label__num">02</span> What I look for</p>
+        <p class="pane__big">A dial I can read at a glance, a case that doesn’t fight my cuff, and a movement someone could still service in forty years. Hand-finished edges are a bonus I pretend not to care about.</p>
+      </div>
+      <div class="thing__note">
+        <p class="label"><span class="label__num">03</span> What I’ve learned</p>
+        <p class="pane__big">Accuracy is overrated. A good one drifts a few seconds a day, and checking <em>how many</em> is half the fun.</p>
+      </div>
+    </section>
+
+    <section class="thing__mine">
+      <p class="label"><span class="label__num">04</span> Mine</p>
+      <dl>
+          <div><dt>Most days</dt><dd><span class="fill">the one on my wrist</span></dd></div>
+          <div><dt>In the drawer</dt><dd><span class="fill">the one waiting its turn</span></dd></div>
+          <div><dt>One day</dt><dd><span class="fill">the grail</span></dd></div>
+      </dl>
+    </section>
+
+    <nav class="thing-next label" aria-label="More things">
+      <a class="thing-next__prev" href="/#things"><span class="arr arr--left" aria-hidden="true"></span> All things<span class="thing-next__big">Things made with care</span></a>
+      <a class="thing-next__next" href="/fountain-pens/">Next <span class="arr arr--right" aria-hidden="true"></span><span class="thing-next__big">Fountain pens</span></a>
+    </nav>
+  </main>
+
+  <script src="/reveal.js" defer></script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>
+</body>
+</html>

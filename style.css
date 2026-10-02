@@ -82,6 +82,8 @@ img { display: block; max-width: 100%; }
 .arr--ne { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.5l9-9M5.5 3.5h7v7'/%3E%3C/svg%3E"); }
 .arr--down { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 1.5v13M3 9.5l5 5 5-5'/%3E%3C/svg%3E"); }
 .arr--up { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 14.5v-13M3 6.5l5-5 5 5'/%3E%3C/svg%3E"); }
+.arr--left { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 8h-13M6.5 3l-5 5 5 5'/%3E%3C/svg%3E"); }
+.arr--right { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.5 8h13M9.5 3l5 5-5 5'/%3E%3C/svg%3E"); }
 .arr--back { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2.5v4.5a3 3 0 0 1-3 3H2.5M6 6.5 2.5 10 6 13.5'/%3E%3C/svg%3E"); }
 .label__num {
   display: inline-block; margin-right: .6em; padding: .1em .55em .05em;
@@ -224,6 +226,7 @@ img { display: block; max-width: 100%; }
 .pane--sage { --pane-bg: var(--sage-deep); background: var(--pane-bg); color: var(--sage); }
 .pane--mist { --pane-bg: var(--mist-deep); background: var(--pane-bg); color: var(--mist); }
 .pane--lilac { --pane-bg: var(--lilac-deep); background: var(--pane-bg); color: var(--lilac); }
+.pane--paper { --pane-bg: var(--paper); background: var(--pane-bg); color: var(--paper-ink); }
 
 .pane__grid { flex: 1; display: grid; grid-template-columns: 7fr 5fr; gap: var(--g); align-items: center; }
 .pane__big {
@@ -311,10 +314,15 @@ img { display: block; max-width: 100%; }
 .pane__lede { font-size: clamp(20px, 2vw, 32px); font-style: italic; font-weight: 400; line-height: 1.25; max-width: 30ch; }
 .pane__list { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .pane__list li {
-  display: grid; grid-template-columns: clamp(2.5rem, 7vw, 7rem) 1fr auto; align-items: center; gap: var(--g);
-  padding: 2vh 0; border-top: 1px solid currentColor;
+  border-top: 1px solid currentColor;
   font-size: clamp(32px, 4.8vw, 84px); font-weight: 400; letter-spacing: -.015em; line-height: 1;
 }
+/* each row is a link to that thing's own page */
+.pane__list li > a {
+  display: grid; grid-template-columns: clamp(2.5rem, 7vw, 7rem) 1fr auto; align-items: center; gap: var(--g);
+  padding: 2vh 0;
+}
+.pane__list li > a:focus-visible { outline: 1.5px solid currentColor; outline-offset: 4px; }
 .li__num { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
 .li__text { transition: translate .4s cubic-bezier(.3, 1.4, .5, 1); }
 .li__ico {
@@ -398,10 +406,92 @@ img { display: block; max-width: 100%; }
 .footer__art { align-self: center; width: clamp(180px, 24vw, 360px); }
 .footer__bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px var(--g); border-top: 1px solid currentColor; padding-top: 14px; }
 
+/* ==========================================================================
+   Thing pages (/watches/ and the rest): one page per item in "Things made
+   with care", each in one of the home page's colours. A big title with its
+   icon drawing itself, three short notes, the owner's own picks, then on to
+   the next thing.
+   ========================================================================== */
+.thing { min-height: var(--screen); padding: var(--g); display: flex; flex-direction: column; }
+.thing-head { display: flex; justify-content: space-between; gap: var(--g); }
+.thing-head a:hover, .thing-next a:hover { text-decoration: underline; }
+
+.thing__hero {
+  min-height: calc(var(--screen) - 2 * var(--g) - 20px);
+  display: grid; grid-template-columns: 1fr auto; grid-template-rows: 1fr auto auto; gap: 3vh var(--g);
+  align-items: end; padding-bottom: 8vh;
+}
+.thing__title {
+  grid-column: 1; margin: 0;
+  font-size: clamp(56px, 11vw, 190px); font-weight: 400; line-height: .9; letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.thing__ico {
+  grid-column: 2; grid-row: 1 / 3; align-self: center;
+  width: clamp(110px, 20vw, 300px); height: clamp(110px, 20vw, 300px);
+  fill: none; stroke: currentColor; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round;
+  /* stroke-dash* are inherited, so they reach the paths inside <use>: the
+     icon draws itself line by line, then sways a little */
+  stroke-dasharray: 160; stroke-dashoffset: 0;
+  animation: ico-draw 2.6s .3s cubic-bezier(.5, 0, .3, 1) both, ico-sway 6s 3s ease-in-out infinite;
+}
+@keyframes ico-draw { from { stroke-dashoffset: 160; } }
+@keyframes ico-sway { 50% { rotate: -6deg; } }
+.thing__lede { grid-column: 1; }
+
+/* the hero arrives word by word, like the home page's name */
+.js .thing__title > span { display: inline-block; opacity: 0; }
+.is-ready .thing__title > span { animation: arrive 1.3s calc(.2s + var(--n, 0) * .2s) cubic-bezier(.2, .7, .2, 1) both; }
+
+.thing__notes { display: flex; flex-direction: column; }
+.thing__note {
+  display: grid; grid-template-columns: 7fr 5fr; gap: var(--g); align-items: start;
+  padding: 6vh 0; border-top: 1px solid currentColor;
+}
+.thing__note .label { grid-column: 2; grid-row: 1; padding-top: .9em; }
+.thing__note .pane__big { grid-column: 1; grid-row: 1; font-size: clamp(28px, 3.4vw, 58px); }
+
+.thing__mine { padding: 8vh 0; border-top: 1px solid currentColor; display: grid; grid-template-columns: 7fr 5fr; gap: var(--g); }
+.thing__mine dl { margin: 0; display: grid; gap: 2.4vh; }
+.thing__mine div { display: grid; grid-template-columns: minmax(0, 13em) 1fr; gap: 6px 16px; align-items: baseline; }
+.thing__mine dt { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
+.thing__mine dd { margin: 0; font-size: clamp(22px, 2.2vw, 34px); line-height: 1.15; }
+/* the gaps left for the owner to fill in */
+.fill {
+  font-family: var(--mono); font-size: .62em; letter-spacing: -.01em; vertical-align: .1em;
+  padding: .05em .4em; border: 1px dashed currentColor; border-radius: .25em; opacity: .8;
+}
+.thing__mine .label { padding-top: .5em; }
+
+/* a joke, with the pause doing most of the work */
+.joke { padding: 10vh 0; border-top: 1px solid currentColor; }
+.joke .pane__big { max-width: 22ch; }
+.joke__punch { margin-top: 3vh; font-size: clamp(30px, 4.1vw, 70px); font-style: italic; line-height: 1.08; }
+.joke.reveal .joke__punch { opacity: 0; }
+.joke.is-in .joke__punch { animation: arrive 1.2s 2.8s cubic-bezier(.2, .7, .2, 1) both; }
+
+.thing-next {
+  margin-top: auto; padding-top: 14px; border-top: 1px solid currentColor;
+  display: flex; justify-content: space-between; gap: 8px var(--g); flex-wrap: wrap;
+}
+.thing-next .arr { transition: translate .4s cubic-bezier(.3, 1.6, .5, 1); }
+.thing-next__prev:hover .arr { translate: -.3em 0; }
+.thing-next__next:hover .arr { translate: .3em 0; }
+.thing-next__big { display: block; margin-top: 8px; font-family: var(--serif); text-transform: none; letter-spacing: -.015em; font-size: clamp(28px, 3.4vw, 56px); line-height: 1.05; }
+.thing-next__next { text-align: right; }
+
+@media (max-width: 767px) {
+  .thing__hero { grid-template-columns: 1fr; grid-template-rows: 1fr auto auto auto; }
+  .thing__ico { grid-column: 1; grid-row: 1; align-self: end; }
+  .thing__note, .thing__mine { grid-template-columns: 1fr; }
+  .thing__note .label, .thing__note .pane__big { grid-column: 1; grid-row: auto; padding-top: 0; }
+  .thing__mine div { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 767px) {
   .pane__grid { grid-template-columns: 1fr; }
   .pane__art { max-width: min(70%, 320px); }
-  .pane__list li { grid-template-columns: 2.2em 1fr auto; gap: 12px; }
+  .pane__list li > a { grid-template-columns: 2.2em 1fr auto; gap: 12px; }
   /* Footer stacks: wordmark space → illustration fills the gap → link → meta row */
   .footer { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; }
   .footer__main { grid-row: 2; }
@@ -417,5 +507,8 @@ img { display: block; max-width: 100%; }
   .doodle path { animation: none; opacity: 1; }
   .scribble::after { animation: none; clip-path: none; }
   .reveal .word, .label.reveal, .specimen.reveal, .pane__list.reveal li { opacity: 1; filter: none; animation: none; }
+  .thing__ico { animation: none; stroke-dasharray: none; }
+  .is-ready .thing__title > span { animation-duration: .01s; animation-delay: 0s; }
+  .joke.reveal .joke__punch { opacity: 1; animation: none; }
   .footer__main, .footer__art { animation: none; }
 }

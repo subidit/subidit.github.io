@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mechanical keyboards · Subidit Nandy</title>
+  <meta name="description" content="Why it is reasonable, or at least inevitable, to care how every keystroke feels.">
+  <meta name="author" content="Subidit Nandy">
+  <link rel="canonical" href="https://subidit.com/keyboards/">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#1f3349">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://subidit.com/keyboards/">
+  <meta property="og:title" content="Mechanical keyboards · Subidit Nandy">
+  <meta property="og:description" content="Why it is reasonable, or at least inevitable, to care how every keystroke feels.">
+  <meta property="og:image" content="https://subidit.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/eb-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+
+  <script>
+    // Runs before first paint: pins --screen to one screen's height (on touch
+    // screens only re-measured when the width changes, so the toolbar sliding
+    // doesn't resize the page), and adds .is-ready once the fonts are in.
+    (function () {
+      var root = document.documentElement;
+      root.classList.add('js');
+      var touch = window.matchMedia('(pointer: coarse)').matches;
+      var lastWidth = 0;
+      function measure() {
+        var w = window.innerWidth;
+        if (touch && w === lastWidth) return;
+        lastWidth = w;
+        root.style.setProperty('--screen', window.innerHeight + 'px');
+      }
+      measure();
+      window.addEventListener('resize', measure);
+      function ready() { root.classList.add('is-ready'); }
+      if (!document.fonts || !document.fonts.load) return ready();
+      Promise.race([
+        Promise.all([
+          document.fonts.load('400 1em "EB Garamond"'),
+          document.fonts.load('italic 400 1em "EB Garamond"')
+        ]),
+        new Promise(function (resolve) { setTimeout(resolve, 2500); })
+      ]).then(ready, ready);
+    })();
+  </script>
+
+  <!-- Analytics -->
+  <script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="gu mu yu bu ku init Vu Gu zu Uu Ku el Wu Yu ju rh oh ah uh hh dh capture getExtension Zu fu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh Su xu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug il Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_ozm72vTREGkmvQ9yHTyp924ZZ6Fa988D4JEPU9XNR8oZ', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+    })
+</script>
+</head>
+<body class="pane--mist">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-key" viewBox="0 0 48 48"><path d="M7.5 38.5 10.8 13a3.4 3.4 0 0 1 3.4-3h19.6a3.4 3.4 0 0 1 3.4 3l3.3 25.5A2.4 2.4 0 0 1 38.1 41H9.9a2.4 2.4 0 0 1-2.4-2.5Z"/><rect x="14" y="12.5" width="20" height="18" rx="3"/><path d="M10.5 30.5 14 28.5M37.5 30.5 34 28.5M20.6 26l3.4-8.8 3.4 8.8M21.9 22.8h4.2"/></symbol>
+    </defs>
+  </svg>
+
+  <main class="thing">
+    <header class="thing-head label">
+      <a href="/#things"><span class="arr arr--left" aria-hidden="true"></span> Subidit Nandy</a>
+      <span>Things made with care · iii / v</span>
+    </header>
+
+    <section class="thing__hero">
+      <h1 class="thing__title"><span style="--n:0">Mechanical</span> <span style="--n:1">keyboards</span></h1>
+      <svg class="thing__ico" aria-hidden="true"><use href="#i-key"/></svg>
+      <p class="pane__lede thing__lede">I type all day, so I’ve decided it’s reasonable to care how every single keystroke feels. It isn’t, but here we are.</p>
+    </section>
+
+    <section class="thing__notes" aria-label="Notes">
+      <div class="thing__note">
+        <p class="label"><span class="label__num">01</span> Why</p>
+        <p class="pane__big">A good keyboard is one you stop noticing, which takes a <em>surprising amount of noticing</em> to get to.</p>
+      </div>
+      <div class="thing__note">
+        <p class="label"><span class="label__num">02</span> What I look for</p>
+        <p class="pane__big">Switches with a clean, even press, keycaps whose legends won’t wear off, and fewer keys than I thought I needed.</p>
+      </div>
+      <div class="thing__note">
+        <p class="label"><span class="label__num">03</span> What I’ve learned</p>
+        <p class="pane__big">Sound matters more than anyone admits. The difference between a clack and a thock is real, and it is also <em>completely ridiculous</em>.</p>
+      </div>
+    </section>
+
+    <section class="thing__mine">
+      <p class="label"><span class="label__num">04</span> Mine</p>
+      <dl>
+          <div><dt>On the desk</dt><dd><span class="fill">board</span> with <span class="fill">switches</span></dd></div>
+          <div><dt>Keycaps</dt><dd><span class="fill">keycap set</span></dd></div>
+          <div><dt>Still in the box</dt><dd><span class="fill">the kit I swear I’ll build</span></dd></div>
+      </dl>
+    </section>
+
+    <nav class="thing-next label" aria-label="More things">
+      <a class="thing-next__prev" href="/fountain-pens/"><span class="arr arr--left" aria-hidden="true"></span> Previous<span class="thing-next__big">Fountain pens</span></a>
+      <a class="thing-next__next" href="/chairs/">Next <span class="arr arr--right" aria-hidden="true"></span><span class="thing-next__big">A good chair</span></a>
+    </nav>
+  </main>
+
+  <script src="/reveal.js" defer></script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>
+</body>
+</html>

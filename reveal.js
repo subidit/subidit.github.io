@@ -58,7 +58,7 @@
     el.classList.add('reveal');
     once.observe(el);
   });
-  document.querySelectorAll('.pane .label, .specimen').forEach(function (el) {
+  document.querySelectorAll('.pane .label, .thing .label, .specimen, .joke').forEach(function (el) {
     el.classList.add('reveal');
     once.observe(el);
   });

@@ -2,13 +2,14 @@
 
 The personal site of Subidit Nandy, an enthusiastic amateur.
 
-It's a single static page with no build step. Its only JavaScript is a short script in the page head, `hero.js` and `reveal.js`. GitHub Pages serves it from the `master` branch at [subidit.com](https://subidit.com).
+It's a static site with no build step: a home page, a page for each of the things in its third section, and a 404. Its only JavaScript is a short script in the page head, `hero.js` and `reveal.js`. GitHub Pages serves it from the `master` branch at [subidit.com](https://subidit.com).
 
 ## Files
 
 | File | What it is |
 | --- | --- |
 | `index.html` | The page: a hero, four sections (About, Type, Things, Amateur) and a footer |
+| `watches/`, `fountain-pens/`, `keyboards/`, `chairs/`, `jokes/` | One page for each item in "Things made with care"; each list row on the home page links to its page |
 | `style.css` | All styles and animations |
 | `hero.js` | The hero's doodle confetti |
 | `reveal.js` | Marks text and drawings to animate in as they come on screen |
@@ -28,6 +29,7 @@ It's a single static page with no build step. Its only JavaScript is a short scr
 - **Drawings:** the illustrations are from [Miroodles](https://miro.com/miroverse/miroodles/), converted from the Sketch file to inline SVG. They're one colour: the ink takes each section's text colour, and what was coloured becomes a light wash of the same. Once a drawing is well into view, `reveal.js` has its pieces pop in one after another over a couple of seconds, and again each time it comes back on screen; the wash drifts slightly off the ink. The list icons are inline SVG line drawings in `currentColor`.
 - **Text:** as each section comes on screen, `reveal.js` wraps its statement's words in spans and they come into focus one after another; labels and list items rise in. Without JavaScript nothing is hidden.
 - **Arrows:** drawn with CSS masks rather than typed, because neither font has ↗ or ↩ and iOS fills the gap with colour emoji.
+- **Thing pages:** each one takes a colour from the home page and has a big title, its icon drawing itself, three short notes, a "Mine" list and links to the previous and next thing. The dashed boxes in "Mine" (`<span class="fill">`) are gaps to fill in with real picks. Each page carries its own copy of its icon's `<symbol>`.
 - **Analytics:** PostHog and Cloudflare Web Analytics, loaded on both pages.
 
 ## Editing
