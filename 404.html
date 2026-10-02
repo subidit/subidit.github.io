@@ -14,7 +14,7 @@
   <!-- Absolute, since this page is served at whatever address went missing -->
   <link rel="stylesheet" href="/style.css">
   <style>
-    .lost { height: auto; min-height: 100vh; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; }
+    .lost { height: auto; min-height: var(--screen); display: grid; grid-template-rows: 1fr auto; }
     .lost__body { display: flex; flex-direction: column; justify-content: center; gap: 4vh; }
     .lost__code { margin: 0; font-weight: 400; font-size: clamp(120px, 22vh, 300px); line-height: .8; letter-spacing: -.03em; }
     .lost__code span { display: inline-block; font-weight: var(--wght); animation: axes 5s ease-in-out infinite; }
@@ -43,7 +43,7 @@
       <h1 class="lost__code"><span class="sr-only">404</span><span aria-hidden="true">4</span><span aria-hidden="true">0</span><span aria-hidden="true">4</span></h1>
       <p class="hero__tagline">Another thing I didn’t finish.</p>
       <p class="pane__lede" style="font-style: normal">There’s nothing at this address. It does load very quickly, though.</p>
-      <a class="footer__link" href="/">Back to the start <span aria-hidden="true">↩</span></a>
+      <a class="footer__link" href="/">Back to the start <span class="arr arr--back" aria-hidden="true"></span></a>
     </div>
     <!-- Still looking for it (Miroodles) -->
     <svg class="lost__art doodle" viewBox="194 -16 870 615" aria-hidden="true">
@@ -74,11 +74,12 @@
     </svg>
     <div class="footer__bottom label" style="margin: 0 var(--g) var(--g)">
       <span>© 2026 Subidit Nandy</span>
-      <a href="https://github.com/subidit" rel="me noopener">GitHub ↗</a>
+      <a href="https://github.com/subidit" rel="me noopener">GitHub <span class="arr arr--ne" aria-hidden="true"></span></a>
     </div>
   </main>
 
   <script src="/hero.js" defer></script>
+  <script src="/reveal.js" defer></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>

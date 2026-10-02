@@ -45,8 +45,15 @@
   /* Docked size as a fraction of full size. Set by the script in the page head
      from clamp(92px, 9.5vw, 150px) ÷ (100vw − 2 × gutter); this is the fallback. */
   --k: .1;
+  /* One screen's height. Mobile Safari's svh can follow the toolbar as it
+     slides, which resizes every pane mid-scroll, so the page head pins this
+     to a pixel value that only changes when the width does. This is the
+     fallback without the script. */
+  --screen: 100vh;
   timeline-scope: --hero, --foot; /* lets the fixed wordmark and header read the sections' timelines */
 }
+
+@supports (height: 100svh) { :root { --screen: 100svh; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--paper); scroll-behavior: smooth; }
@@ -65,6 +72,17 @@ ol, ul { list-style: none; padding: 0; }
 img { display: block; max-width: 100%; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .label { font-family: var(--mono); font-size: 12px; line-height: 1.3; font-weight: 400; letter-spacing: .04em; text-transform: uppercase; }
+/* Arrows are drawn, not typed: neither font has ↗ or ↩, and iOS fills the gap
+   with its colour emoji */
+.arr {
+  display: inline-block; width: .72em; height: .72em; vertical-align: -.02em;
+  background: currentColor;
+  mask: var(--arr) center / contain no-repeat;
+}
+.arr--ne { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 12.5l9-9M5.5 3.5h7v7'/%3E%3C/svg%3E"); }
+.arr--down { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 1.5v13M3 9.5l5 5 5-5'/%3E%3C/svg%3E"); }
+.arr--up { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 14.5v-13M3 6.5l5-5 5 5'/%3E%3C/svg%3E"); }
+.arr--back { --arr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2.5v4.5a3 3 0 0 1-3 3H2.5M6 6.5 2.5 10 6 13.5'/%3E%3C/svg%3E"); }
 .label__num {
   display: inline-block; margin-right: .6em; padding: .1em .55em .05em;
   border: 1px solid currentColor; border-radius: 99px;
@@ -120,7 +138,7 @@ img { display: block; max-width: 100%; }
   animation-range: cover 50% cover 100%;
 }
 @keyframes logo-dock {
-  from { translate: -50% calc(50svh - .4 * var(--big)); scale: 1; }
+  from { translate: -50% calc(.5 * var(--screen) - .4 * var(--big)); scale: 1; }
   to   { translate: -50% var(--g); scale: var(--k); }
 }
 /* The inner text undoes the docked scale as the footer arrives, so the
@@ -137,18 +155,21 @@ img { display: block; max-width: 100%; }
 /* Browsers without scroll-driven animations: the wordmark simply sits in the hero */
 @supports not (animation-timeline: view()) {
   .logo, .header { position: absolute; }
-  .logo { translate: -50% calc(50svh - .4 * var(--big)); }
+  .logo { translate: -50% calc(.5 * var(--screen) - .4 * var(--big)); }
 }
 
-/* First load: the confetti pops in, then the wordmark and tagline arrive once the
-   fonts are in (the page script adds .is-ready), so nothing ever flashes in
-   a fallback typeface. Without the script, everything shows at once. */
-.js .logo__text > span, .js .hero__meta, .js .hero__scroll { opacity: 0; }
-.is-ready .logo__text > span { display: inline-block; animation: arrive .9s .45s cubic-bezier(.2, .7, .2, 1) both; }
-.is-ready .hero__meta, .is-ready .hero__scroll { animation: arrive .8s .8s cubic-bezier(.2, .7, .2, 1) both; }
+/* First load: the confetti pops in, then the wordmark and tagline arrive word
+   by word, rising out of a blur, once the fonts are in (the page script adds
+   .is-ready), so nothing ever flashes in a fallback typeface. Without the
+   script, everything shows at once. */
+.js .logo__text > span, .js .hero__tagline > span, .js .hero__scroll { opacity: 0; }
+.logo__text > span, .hero__tagline > span { display: inline-block; }
+.is-ready .logo__text > span { animation: arrive 1.4s calc(.5s + var(--n, 0) * .28s) cubic-bezier(.2, .7, .2, 1) both; }
+.is-ready .hero__tagline > span { animation: arrive 1.1s calc(1.3s + var(--n, 0) * .18s) cubic-bezier(.2, .7, .2, 1) both; }
+.is-ready .hero__scroll { animation: arrive 1s 1.9s cubic-bezier(.2, .7, .2, 1) both; }
 @keyframes arrive {
-  from { opacity: 0; translate: 0 .35em; }
-  to   { opacity: 1; translate: 0 0; }
+  from { opacity: 0; translate: 0 .4em; filter: blur(.12em); }
+  to   { opacity: 1; translate: 0 0; filter: blur(0); }
 }
 
 /* ==========================================================================
@@ -158,7 +179,7 @@ img { display: block; max-width: 100%; }
    ========================================================================== */
 .hero {
   position: relative;
-  height: 100vh; height: 100svh;
+  height: var(--screen);
   background: var(--paper);
   view-timeline-name: --hero;
   overflow: clip; isolation: isolate;
@@ -183,19 +204,19 @@ img { display: block; max-width: 100%; }
   width: var(--size); height: var(--size);
   will-change: transform;
 }
-.bit svg { display: block; width: 100%; height: 100%; overflow: visible; animation: bit-in .7s var(--delay) cubic-bezier(.3, 1.6, .5, 1) both; }
+.bit svg { display: block; width: 100%; height: 100%; overflow: visible; animation: bit-in 1s var(--delay) cubic-bezier(.3, 1.6, .5, 1) both; }
 @keyframes bit-in { from { scale: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   .bit svg { animation: none; }
-  .is-ready .logo__text > span, .is-ready .hero__meta, .is-ready .hero__scroll { animation-duration: .01s; animation-delay: 0s; }
+  .is-ready .logo__text > span, .is-ready .hero__tagline > span, .is-ready .hero__scroll { animation-duration: .01s; animation-delay: 0s; }
 }
 
 /* ==========================================================================
    Static panes (palette, no animation)
    ========================================================================== */
 .pane {
-  min-height: 100vh; min-height: 100svh;
+  min-height: var(--screen);
   padding: calc(var(--g) + 90px) var(--g) var(--g);
   display: flex; flex-direction: column; gap: 6vh;
 }
@@ -259,7 +280,6 @@ img { display: block; max-width: 100%; }
    section's text colour, and what was coloured is a light wash of the same. */
 .doodle {
   display: block; overflow: visible;
-  view-timeline: --doodle;
 }
 .doodle path { transform-box: fill-box; transform-origin: center; }
 .doodle__ink path { fill: currentColor; }
@@ -273,19 +293,18 @@ img { display: block; max-width: 100%; }
   50%  { translate: 4px -3px; }
   100% { translate: -3px 2px; }
 }
-/* Pieces pop in one after another as the drawing scrolls into view */
-@supports (animation-timeline: view()) {
-  .doodle path { animation: pop linear both; animation-timeline: --doodle; animation-range: entry calc(var(--i) * 55%) entry calc(30% + var(--i) * 55%); }
-  .doodle__color path {
-    animation: pop linear both, register 4s ease-in-out infinite alternate;
-    animation-timeline: --doodle, auto;
-    animation-range: entry calc(var(--i) * 55%) entry calc(30% + var(--i) * 55%), normal;
-    animation-delay: 0s, calc(var(--i) * -7s);
-  }
+/* Pieces pop in one after another once the drawing is well into view
+   (reveal.js adds .is-in), over a couple of seconds rather than a few pixels
+   of scroll, and again each time it comes back on screen */
+.doodle.reveal path { opacity: 0; }
+.doodle.is-in path { animation: pop .8s calc(var(--i) * 1.8s) cubic-bezier(.3, 1.5, .5, 1) both; }
+.doodle.is-in .doodle__color path {
+  animation: pop .8s calc(var(--i) * 1.8s) cubic-bezier(.3, 1.5, .5, 1) both,
+             register 4s calc(var(--i) * -7s) ease-in-out infinite alternate;
 }
 @keyframes pop {
   from { opacity: 0; scale: .3; }
-  70%  { opacity: 1; scale: 1.08; }
+  60%  { opacity: 1; }
   to   { opacity: 1; scale: 1; }
 }
 
@@ -307,23 +326,45 @@ img { display: block; max-width: 100%; }
 .pane__list li:hover .li__ico { rotate: -12deg; scale: 1.15; }
 .pane__list li:last-child { border-bottom: 1px solid currentColor; }
 
-/* "amateur" gets underlined by hand — the scribble draws itself as it scrolls in */
+/* "amateur" gets underlined by hand — the scribble draws itself just after the word arrives */
 .scribble { position: relative; white-space: nowrap; font-style: italic; }
 .scribble::after {
   content: ""; position: absolute; left: -4%; right: -4%; bottom: -.16em; height: .32em;
   background: currentColor;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 24' preserveAspectRatio='none'%3E%3Cpath d='M4 14c28-9 48 5 78-3s56-7 82 0 22 3 32-5M20 19c40-5 90-6 150-3' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  animation: draw linear both;
-  animation-timeline: view();
-  animation-range: entry 80% cover 55%;
 }
+.reveal .scribble::after { clip-path: inset(0 100% 0 0); }
+.is-in .scribble::after { animation: draw 1s calc(var(--w) * 45ms + .5s) cubic-bezier(.6, 0, .3, 1) both; }
 @keyframes draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+/* ==========================================================================
+   Text arrives as each section scrolls in. reveal.js wraps the words of each
+   statement and marks what it will animate with .reveal, then adds .is-in
+   once it is on screen. Without the script, or with reduced motion, nothing
+   is hidden.
+   ========================================================================== */
+.reveal .word { opacity: 0; filter: blur(6px); }
+.is-in .word { animation: focus 1s calc(var(--w) * 45ms) cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes focus { to { opacity: 1; filter: blur(0); } }
+
+.label.reveal, .specimen.reveal { opacity: 0; }
+.label.is-in { animation: arrive .9s cubic-bezier(.2, .7, .2, 1) both; }
+.specimen.is-in {
+  animation: axes 5s ease-in-out infinite, card-in 1.2s .4s cubic-bezier(.3, 1.4, .5, 1) both;
+}
+@keyframes card-in {
+  from { opacity: 0; scale: .85; rotate: -4deg; }
+  to   { opacity: 1; scale: 1; rotate: 0deg; }
+}
+
+.pane__list.reveal li { opacity: 0; }
+.pane__list.is-in li { animation: arrive 1s calc(var(--n) * .14s) cubic-bezier(.2, .7, .2, 1) both; }
 
 /* ==========================================================================
    Last panel
    ========================================================================== */
 .footer {
-  height: 100vh; height: 100svh;
+  height: var(--screen);
   min-height: 520px;
   background: var(--paper);
   color: var(--paper-ink);
@@ -373,7 +414,8 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .w-fonts > span, .specimen, .specimen__glyph,
-  .doodle path { animation: none; }
+  .doodle path { animation: none; opacity: 1; }
   .scribble::after { animation: none; clip-path: none; }
+  .reveal .word, .label.reveal, .specimen.reveal, .pane__list.reveal li { opacity: 1; filter: none; animation: none; }
   .footer__main, .footer__art { animation: none; }
 }

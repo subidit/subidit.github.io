@@ -35,19 +35,29 @@
 
   <script>
     // Runs before first paint. Sets --k, the docked wordmark's size as a
-    // fraction of its full size, and adds .is-ready once the fonts are in, so
-    // the wordmark never shows in a fallback face (2.5s at most).
+    // fraction of its full size, and --screen, one screen's height in pixels;
+    // then adds .is-ready once the fonts are in, so the wordmark never shows
+    // in a fallback face (2.5s at most).
     (function () {
       var root = document.documentElement;
       root.classList.add('js');
-      function setScale() {
+      // On touch screens the height changes whenever the browser's toolbar
+      // slides in or out; following it would resize every pane mid-scroll,
+      // so there --screen is only measured again when the width changes
+      // (turning the phone). Elsewhere it follows the window.
+      var touch = window.matchMedia('(pointer: coarse)').matches;
+      var lastWidth = 0;
+      function measure() {
         var w = window.innerWidth;
         var gutter = Math.min(44, Math.max(16, w * 0.026));
         var docked = Math.min(150, Math.max(92, w * 0.095));
         root.style.setProperty('--k', (docked / (w - 2 * gutter)).toFixed(4));
+        if (touch && w === lastWidth) return;
+        lastWidth = w;
+        root.style.setProperty('--screen', window.innerHeight + 'px');
       }
-      setScale();
-      window.addEventListener('resize', setScale);
+      measure();
+      window.addEventListener('resize', measure);
       function ready() { root.classList.add('is-ready'); }
       if (!document.fonts || !document.fonts.load) return ready();
       Promise.race([
@@ -90,9 +100,9 @@
         <a href="#about">About</a>
         <a href="#things">Things</a>
       </nav>
-      <a class="header__right" href="https://github.com/subidit" rel="me noopener">GitHub ↗</a>
+      <a class="header__right" href="https://github.com/subidit" rel="me noopener">GitHub <span class="arr arr--ne" aria-hidden="true"></span></a>
     </header>
-    <div class="logo" aria-hidden="true"><span class="logo__text"><span>Subidit Nandy</span></span></div>
+    <div class="logo" aria-hidden="true"><span class="logo__text"><span style="--n:0">Subidit</span> <span style="--n:1">Nandy</span></span></div>
   </div>
 
   <main>
@@ -101,8 +111,8 @@
     <!-- First panel -->
     <section class="hero" id="top">
       <div class="hero__bits" aria-hidden="true"></div>
-      <p class="hero__meta hero__tagline">Enthusiastic amateur</p>
-      <p class="label hero__scroll">Scroll ↓</p>
+      <p class="hero__meta hero__tagline"><span style="--n:0">Enthusiastic</span> <span style="--n:1">amateur</span></p>
+      <p class="label hero__scroll">Scroll <span class="arr arr--down" aria-hidden="true"></span></p>
     </section>
 
     <!-- Static panes -->
@@ -202,7 +212,7 @@
       <div class="footer__space"></div>
       <div class="footer__main">
         <p class="label">Anything I did finish is on</p>
-        <a class="footer__link" href="https://github.com/subidit" rel="me noopener">github.com/subidit <span aria-hidden="true">↗</span></a>
+        <a class="footer__link" href="https://github.com/subidit" rel="me noopener">github.com/subidit <span class="arr arr--ne" aria-hidden="true"></span></a>
       </div>
       <!-- A finished thing, opened and loved (Miroodles) -->
       <svg class="footer__art doodle" viewBox="-31 325 756 730" aria-hidden="true">
@@ -234,12 +244,13 @@
       <div class="footer__bottom label">
         <span>© 2026 Subidit Nandy</span>
         <span class="footer__colophon">Set in EB Garamond &amp; DM Mono · Doodles from Miroodles</span>
-        <a href="#top">Back to top ↑</a>
+        <a href="#top">Back to top <span class="arr arr--up" aria-hidden="true"></span></a>
       </div>
     </footer>
   </main>
 
   <script src="/hero.js" defer></script>
+  <script src="/reveal.js" defer></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>

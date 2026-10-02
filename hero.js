@@ -64,7 +64,7 @@
       var el = document.createElement('i');
       el.className = 'bit';
       el.style.setProperty('--size', size.toFixed(0) + 'px');
-      el.style.setProperty('--delay', (rand() * 0.6).toFixed(2) + 's');
+      el.style.setProperty('--delay', (rand() * 1.2).toFixed(2) + 's');
       el.innerHTML = shapeSvg(kinds[n % kinds.length]);
       rand(); // keeps the scatter where it was
       field.appendChild(el);
