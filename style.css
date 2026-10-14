@@ -343,19 +343,23 @@ img { display: block; max-width: 100%; }
   background: currentColor;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 24' preserveAspectRatio='none'%3E%3Cpath d='M4 14c28-9 48 5 78-3s56-7 82 0 22 3 32-5M20 19c40-5 90-6 150-3' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
-.reveal:not(.is-in) .scribble::after { clip-path: inset(0 100% 0 0); }
-.is-in .scribble::after { animation: draw 1s calc(var(--w) * 45ms + .5s) cubic-bezier(.6, 0, .3, 1) backwards; }
+.lines:not(.is-in) .scribble::after { clip-path: inset(0 100% 0 0); }
+.is-in .scribble::after { animation: draw 1s .15s cubic-bezier(.6, 0, .3, 1) backwards; }
 @keyframes draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 
 /* ==========================================================================
-   Text arrives as each section scrolls in. reveal.js wraps the words of each
-   statement and marks what it will animate with .reveal, then adds .is-in
-   once it is on screen. Without the script, or with reduced motion, nothing
-   is hidden.
+   Text arrives as each section scrolls in. Statements (.lines) rise line by
+   line out of a mask: reveal.js puts each word in a clipping .mask and moves
+   the .word inside it up with the scroll, then adds .is-in once every line
+   is up. Other things are marked .reveal and get .is-in once on screen.
+   Without the script, or with reduced motion, nothing is hidden.
    ========================================================================== */
-.reveal:not(.is-in) .word { opacity: 0; }
-.is-in .word { animation: focus 1s calc(var(--w) * 45ms) cubic-bezier(.2, .7, .2, 1) backwards; }
-@keyframes focus { from { opacity: 0; filter: blur(6px); } }
+.lines .mask, .lines .word { display: inline-block; }
+/* the clip reaches past the box for italic overhangs and descenders, and
+   comes off once a line is up, so nothing (the scribble) stays cut */
+.lines .mask:not(.is-up), .lines .mask.is-load { clip-path: inset(-.4em -.3em -.12em -.3em); }
+.lines .mask.is-load .word { animation: line-up 1.1s calc(.35s + var(--l) * .12s) cubic-bezier(.2, .7, .2, 1) backwards; }
+@keyframes line-up { from { translate: 0 115%; } }
 
 .label.reveal:not(.is-in), .specimen.reveal:not(.is-in) { opacity: 0; }
 .label.is-in { animation: arrive .9s cubic-bezier(.2, .7, .2, 1) backwards; }
@@ -373,6 +377,7 @@ img { display: block; max-width: 100%; }
    Last panel
    ========================================================================== */
 .footer {
+  position: relative;
   height: var(--screen);
   min-height: 520px;
   background: var(--paper);
@@ -383,6 +388,12 @@ img { display: block; max-width: 100%; }
   grid-template-rows: auto 1fr auto;
   --pane-bg: var(--paper);
   view-timeline-name: --foot;
+}
+/* reveal.js draws the elastic top edge here; it reaches up over the section above */
+.footer__edge {
+  position: absolute; left: 0; top: -48px; z-index: 1;
+  width: 100%; height: 208px;
+  pointer-events: none;
 }
 .footer__space { grid-column: 1 / -1; height: calc(.8 * var(--big) + var(--g)); }
 .footer__main { align-self: center; }

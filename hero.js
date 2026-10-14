@@ -1,7 +1,9 @@
 // Hero confetti: small doodles scattered over the first screen. The cursor or
 // a finger pushes them out of the way (they spin as they go), a click or tap
 // throws the nearby ones outward, and springs bring every piece home again.
-// Only transforms change, and the loop runs only while the hero is on screen.
+// The pieces bounce off the letters of the name rather than drift over them,
+// and none is ever at home behind it. Only transforms change, and the loop
+// runs only while the hero is on screen.
 
 (function () {
   var field = document.querySelector('.hero__bits');
@@ -69,12 +71,114 @@
       rand(); // keeps the scatter where it was
       field.appendChild(el);
       bits.push({
-        el: el, hx: hx - size / 2, hy: hy - size / 2,
+        el: el, s: size, hx: hx - size / 2, hy: hy - size / 2,
         x: hx - size / 2, y: hy - size / 2, vx: 0, vy: 0,
         turn: rand() * 360, spin: 0, phase: rand() * 6.28
       });
     }
+    homed = false;
     draw(0);
+  }
+
+  // The name's letters as boxes around their ink, in hero coordinates. Each
+  // letter's ink is measured once on a canvas, in ems from its baseline; where
+  // the letter is now comes from a Range over it, which follows the wordmark's
+  // scroll-driven move and scale.
+  var logo = document.querySelector('.logo__text');
+  var letters = [], ink = null;
+  function measureInk() {
+    var ctx = document.createElement('canvas').getContext('2d');
+    if (!ctx || !logo) return;
+    ctx.font = '400 100px "EB Garamond"';
+    var walker = document.createTreeWalker(logo, NodeFilter.SHOW_TEXT);
+    var probe = ctx.measureText('H');
+    ink = { asc: probe.fontBoundingBoxAscent / 100, desc: probe.fontBoundingBoxDescent / 100 };
+    if (!ink.asc) { ink = null; return; }
+    letters = [];
+    for (var node; (node = walker.nextNode());) {
+      for (var i = 0; i < node.length; i++) {
+        var ch = node.data[i];
+        if (/\s/.test(ch)) continue;
+        var m = ctx.measureText(ch), range = document.createRange();
+        range.setStart(node, i); range.setEnd(node, i + 1);
+        letters.push({
+          range: range,
+          left: m.actualBoundingBoxLeft / 100, right: m.actualBoundingBoxRight / 100,
+          up: m.actualBoundingBoxAscent / 100, down: m.actualBoundingBoxDescent / 100
+        });
+      }
+    }
+  }
+  var boxes = [];
+  function findLetters() {
+    boxes.length = 0;
+    if (!ink) return;
+    var hb = hero.getBoundingClientRect();
+    for (var i = 0; i < letters.length; i++) {
+      var L = letters[i], r = L.range.getBoundingClientRect();
+      if (!r.height) continue;
+      var em = r.height / (ink.asc + ink.desc), base = r.top + ink.asc * em;
+      boxes.push({
+        l: r.left - L.left * em - hb.left - 4, r: r.left + L.right * em - hb.left + 4,
+        t: base - L.up * em - hb.top - 4, b: base + L.down * em - hb.top + 4
+      });
+    }
+  }
+
+  // Once the name is in place (top of the page, fonts in), move any home that
+  // sits behind it to just above or below it
+  var homed = false;
+  function moveHomes() {
+    homed = true;
+    findLetters();
+    if (!boxes.length) return;
+    for (var i = 0; i < bits.length; i++) {
+      var b = bits[i], r = b.s * 0.45, cx = b.hx + b.s / 2, cy = b.hy + b.s / 2;
+      var top = Infinity, bottom = -Infinity;
+      for (var j = 0; j < boxes.length; j++) {
+        var q = boxes[j];
+        if (cx + r > q.l && cx - r < q.r) { top = Math.min(top, q.t); bottom = Math.max(bottom, q.b); }
+      }
+      if (cy + r <= top || cy - r >= bottom) continue;
+      var up = top - r - 6, down = bottom + r + 6;
+      cy = (cy - up < down - cy && up - r > 0) || down + r > height ? up : down;
+      b.hy = cy - b.s / 2;
+      if (still) { b.x = b.hx; b.y = b.hy; }
+    }
+    if (still) draw(0);
+  }
+  function settle() {
+    if (!homed && ink && window.scrollY < 1) moveHomes();
+  }
+
+  // A piece that touches a letter is pushed back out and bounces off it
+  function collide(b) {
+    var r = b.s * 0.42, cx = b.x + b.s / 2, cy = b.y + b.s / 2;
+    for (var j = 0; j < boxes.length; j++) {
+      var q = boxes[j];
+      var nx = Math.max(q.l, Math.min(cx, q.r)), ny = Math.max(q.t, Math.min(cy, q.b));
+      var dx = cx - nx, dy = cy - ny, d2 = dx * dx + dy * dy;
+      if (d2 >= r * r) continue;
+      var ux, uy, depth;
+      if (d2 > 0) {
+        var d = Math.sqrt(d2);
+        ux = dx / d; uy = dy / d; depth = r - d;
+      } else {
+        // the centre is inside the letter: leave by the nearest side
+        var toL = cx - q.l, toR = q.r - cx, toT = cy - q.t, toB = q.b - cy;
+        var least = Math.min(toL, toR, toT, toB);
+        ux = least === toL ? -1 : least === toR ? 1 : 0;
+        uy = ux ? 0 : least === toT ? -1 : 1;
+        depth = least + r;
+      }
+      b.x += ux * depth; b.y += uy * depth;
+      cx += ux * depth; cy += uy * depth;
+      var vn = b.vx * ux + b.vy * uy;
+      if (vn < 0) {
+        b.vx -= 1.7 * vn * ux; b.vy -= 1.7 * vn * uy;
+        b.spin += (ux * b.vy - uy * b.vx) * 0.5;
+      }
+    }
   }
 
   var pointer = { x: -9999, y: -9999, on: false };
@@ -112,6 +216,8 @@
 
   var RADIUS = 210;
   function step(t) {
+    settle();
+    findLetters();
     for (var i = 0; i < bits.length; i++) {
       var b = bits[i];
       // springs pull each piece home
@@ -130,6 +236,7 @@
       }
       b.vx *= 0.88; b.vy *= 0.88; b.spin *= 0.92;
       b.x += b.vx; b.y += b.vy;
+      collide(b);
       b.turn += b.spin + b.vx * 0.6;
     }
     draw(t);
@@ -141,13 +248,15 @@
   function stop() { running = false; cancelAnimationFrame(frame); }
 
   build();
+  function inkReady() { measureInk(); homed = false; settle(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(inkReady); else inkReady();
   var resizeTimer = 0;
   window.addEventListener('resize', function () {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       var box = hero.getBoundingClientRect();
       // phones resize the viewport as the address bar slides; ignore small changes
-      if (Math.abs(box.width - width) > 40 || Math.abs(box.height - height) > 120) build();
+      if (Math.abs(box.width - width) > 40 || Math.abs(box.height - height) > 120) { build(); settle(); }
     }, 200);
   });
   if (still) return;
