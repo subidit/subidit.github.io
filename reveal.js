@@ -128,7 +128,7 @@
     entries.forEach(function (e) { if (!e.isIntersecting) e.target.classList.remove('is-in'); });
   });
 
-  document.querySelectorAll('.pane .label, .specimen').forEach(function (el) {
+  document.querySelectorAll('.pane .label, .press').forEach(function (el) {
     el.classList.add('reveal');
     once.observe(el);
   });

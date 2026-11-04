@@ -13,6 +13,12 @@
   font-family: "DM Mono"; font-style: normal; font-weight: 400; font-display: swap;
   src: url("/fonts/dm-mono.woff2") format("woff2");
 }
+/* Each thing page's own face, used by its row in "Things made with care" */
+@font-face { font-family: "Bodoni Moda"; font-weight: 400 900; font-display: swap; src: url("/fonts/bodoni-moda.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("/fonts/instrument-serif-italic.woff2") format("woff2"); }
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 300 800; font-stretch: 75% 100%; font-display: swap; src: url("/fonts/bricolage.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-weight: 300 900; font-stretch: 62% 125%; font-display: swap; src: url("/fonts/archivo.woff2") format("woff2"); }
+@font-face { font-family: "Fraunces"; font-weight: 300 900; font-display: swap; src: url("/fonts/fraunces.woff2") format("woff2"); }
 
 /* ==========================================================================
    The wordmark fills the hero, docks in the header as you scroll, and grows
@@ -249,28 +255,81 @@ img { display: block; max-width: 100%; }
   padding: .02em .28em; border: 1px dashed currentColor; border-radius: .2em;
 }
 
-/* Specimen: nobody asked, so it answers anyway — one typeface, endless fonts.
-   The weight eases continuously; the readout is a counter fed by --wght-n. */
-.specimen {
-  margin: 0; justify-self: center; width: min(100%, 460px); aspect-ratio: 1;
-  display: grid; grid-template-rows: 1fr auto;
-  padding: clamp(14px, 1.6vw, 22px);
+/* The press: nobody asked, so it answers anyway. Metal sorts sit backwards
+   in a composing stick; pick a case (a font) from the typeface, set a word,
+   and pull a print. */
+.press {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  margin: 0; justify-self: center; width: min(100%, 480px);
+  display: grid; gap: 16px;
+  padding: clamp(16px, 1.8vw, 24px);
   border: 1.5px solid currentColor; border-radius: clamp(18px, 2vw, 28px);
-  container-type: inline-size;
-  animation: axes 5s ease-in-out infinite;
 }
-.specimen__glyph {
-  place-self: center;
-  font-size: 62cqi; line-height: 1; letter-spacing: -.03em;  /* scales with the card */
-  font-weight: var(--wght);
+.press__cases { display: flex; gap: 6px; }
+.press__cases button {
+  all: unset; cursor: pointer; flex: 1; text-align: center;
+  padding: 8px 6px; border-radius: 999px; border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+  font-size: clamp(16px, 1.4vw, 20px); line-height: 1;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
 }
-.specimen__cap {
-  display: flex; justify-content: space-between; gap: 8px;
-  padding-top: 12px; border-top: 1px solid currentColor;
-  font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+.press__cases button[aria-checked="true"] { background: var(--sage); border-color: var(--sage); color: var(--sage-deep); }
+.press__cases button:focus-visible { outline: 1.5px solid currentColor; outline-offset: 3px; }
+.press__cases button:active { scale: .97; }
+
+/* The composing stick: a steel tray, the sorts standing in it backwards */
+.press__stick {
+  position: relative; display: flex; align-items: flex-end; justify-content: flex-end;
+  height: clamp(96px, 9vw, 124px); padding: 10px 12px 12px; border-radius: 6px; cursor: text;
+  background: linear-gradient(180deg, color-mix(in srgb, currentColor 10%, var(--pane-bg)), color-mix(in srgb, currentColor 18%, var(--pane-bg)));
+  box-shadow: inset 0 2px 0 rgb(0 0 0 / .25), inset 0 -1px 0 color-mix(in srgb, currentColor 25%, transparent);
+  overflow: hidden;
 }
-.specimen__readout { counter-reset: w var(--wght-n); font-variant-numeric: tabular-nums; }
-.specimen__readout::before { content: "wght " counter(w); }
+.press__sorts { display: flex; flex-direction: row-reverse; align-items: flex-end; gap: 2px; height: 100%; }
+.sort {
+  position: relative; display: grid; place-items: center; height: 100%;
+  padding: 0 .08em; min-width: .3em;
+  font-size: clamp(54px, 5.4vw, 74px); line-height: 1;
+  color: #eef3ec;
+  background: linear-gradient(90deg, #6f7b71, #9aa69b 30%, #849186 70%, #5d685f);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .35), inset 0 -3px 0 rgb(0 0 0 / .25), 0 2px 3px rgb(0 0 0 / .35);
+  transition: translate .12s var(--ease-out);
+}
+.sort span { display: block; scale: -1 1; text-shadow: 0 1px 0 rgb(0 0 0 / .45), 0 -1px 0 rgb(255 255 255 / .25); translate: 0 -.04em; }
+.sort::after { content: ""; position: absolute; left: 22%; right: 22%; bottom: 7px; height: 3px; border-radius: 2px; background: rgb(0 0 0 / .28); } /* the nick */
+.sort.is-new { animation: sort-in .45s var(--ease-out) backwards; animation-delay: calc(var(--i) * 60ms); }
+@keyframes sort-in { from { translate: 0 -60%; opacity: 0; } }
+.press.is-pressing .sort { translate: 0 5px; }
+.press__stick::after { /* where the next sort goes */
+  content: ""; position: absolute; left: 12px; bottom: 12px; width: 3px; height: 40%; border-radius: 2px;
+  background: currentColor; opacity: 0;
+}
+.press__stick:focus-within::after { animation: slot 1.1s steps(1) infinite; }
+@keyframes slot { 50% { opacity: .7; } }
+.press__input { position: absolute; inset: 0; opacity: 0; width: 100%; font-size: 16px; cursor: text; }
+
+/* The paper: the impression reads the right way round, a little uneven */
+.press__paper {
+  height: clamp(84px, 8vw, 110px); border-radius: 3px; display: grid; place-items: center; overflow: hidden;
+  background: #f4eee1; color: #1f2a22;
+  box-shadow: 0 1px 0 rgb(255 255 255 / .2) inset, 0 10px 24px -12px rgb(0 0 0 / .6);
+}
+.press__print { font-size: clamp(48px, 4.8vw, 66px); line-height: 1; white-space: nowrap; }
+.press__print span { display: inline-block; opacity: var(--o, 1); rotate: var(--r, 0deg); text-shadow: 0 0 .5px currentColor; }
+.press__print.is-fresh span { animation: bite .5s var(--ease-out) backwards; animation-delay: calc(var(--i) * 25ms); }
+@keyframes bite { from { opacity: 0; scale: 1.08; filter: blur(3px); } }
+.press__foot { display: flex; gap: 14px; align-items: end; justify-content: space-between; }
+.press figcaption { font-size: 15px; line-height: 1.35; max-width: 34ch; }
+.press figcaption em { font-style: italic; }
+.press__font { font-family: var(--mono); font-size: .82em; padding: 0 .25em; border: 1px dashed currentColor; border-radius: .2em; }
+.press__go {
+  all: unset; cursor: pointer; flex: none;
+  padding: 10px 18px; border-radius: 999px; background: var(--sage); color: var(--sage-deep);
+  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  transition: scale .16s var(--ease-out);
+}
+.press__go:active { scale: .96; }
+.press__go:focus-visible { outline: 1.5px solid currentColor; outline-offset: 3px; }
 @keyframes axes {
   0%, 100% { --wght: 400; --wght-n: 400; }
   50%      { --wght: 800; --wght-n: 800; }
@@ -315,21 +374,64 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid currentColor;
   font-size: clamp(32px, 4.8vw, 84px); font-weight: 400; letter-spacing: -.015em; line-height: 1;
 }
-/* each row is a link to that thing's own page */
+/* Each row is a door to that thing's page. Hover it (or, on a touch screen,
+   scroll it to the middle) and it floods with that page's own world: its
+   colours, its typeface, a line about what's inside, and a small motion. */
 .pane__list li > a {
-  display: grid; grid-template-columns: clamp(2.5rem, 7vw, 7rem) 1fr auto; align-items: center; gap: var(--g);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: clamp(2.5rem, 7vw, 7rem) 1fr auto auto; align-items: center; gap: var(--g);
   padding: 2vh 0;
+  transition: color .35s ease;
+}
+.pane__list li > a::before {
+  content: ""; position: absolute; z-index: -1; inset: -1px calc(-1 * var(--g));
+  background: var(--w-bg);
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path .55s var(--ease-out);
 }
 .pane__list li > a:focus-visible { outline: 1.5px solid currentColor; outline-offset: 4px; }
 .li__num { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; }
-.li__text { transition: translate .4s cubic-bezier(.3, 1.4, .5, 1); }
+.li__text { transition: translate .45s var(--ease-out); }
+.li__tease {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; text-align: right;
+  color: var(--w-acc); opacity: 0; translate: 12px 0;
+  transition: opacity .3s ease, translate .45s var(--ease-out);
+}
 .li__ico {
   width: clamp(40px, 4.6vw, 72px); height: clamp(40px, 4.6vw, 72px);
   fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-  transition: rotate .5s cubic-bezier(.3, 1.8, .5, 1), scale .5s cubic-bezier(.3, 1.8, .5, 1);
+  transition: stroke .35s ease, scale .45s var(--ease-out);
 }
-.pane__list li:hover .li__text { font-style: italic; translate: .25em 0; }
-.pane__list li:hover .li__ico { rotate: -12deg; scale: 1.15; }
+.pane__list a.is-world { color: var(--w-fg); }
+.pane__list a.is-world::before { clip-path: inset(0 0 0 0); }
+.pane__list a.is-world .li__text { font-family: var(--w-font); translate: .2em 0; }
+.pane__list a.is-world .li__tease { opacity: 1; translate: 0 0; transition-delay: .12s; }
+.pane__list a.is-world .li__ico { stroke: var(--w-acc); }
+
+[data-world="watches"] { --w-bg: #0b111c; --w-fg: #ece6d8; --w-acc: #cdf3c0; --w-font: "Bodoni Moda", var(--serif); }
+[data-world="fountain-pens"] { --w-bg: #f2ebdd; --w-fg: #2a241d; --w-acc: #2a3a63; --w-font: "Instrument Serif", var(--serif); }
+[data-world="keyboards"] { --w-bg: #1c1d20; --w-fg: #f1ece0; --w-acc: #f0683c; --w-font: "Bricolage Grotesque", sans-serif; }
+[data-world="chairs"] { --w-bg: #f3efe6; --w-fg: #171615; --w-acc: #d13b29; --w-font: "Archivo", sans-serif; }
+[data-world="jokes"] { --w-bg: radial-gradient(40% 160% at 82% 50%, #3b2b1c, #120e0c 70%); --w-fg: #fbecd2; --w-acc: #f4b33f; --w-font: "Fraunces", var(--serif); }
+.is-world[data-world="watches"] .li__text { letter-spacing: -.03em; }
+.is-world[data-world="watches"] .kern-w { margin-right: -.09em; }
+.is-world[data-world="fountain-pens"] .li__text { font-style: italic; letter-spacing: -.01em; }
+.is-world[data-world="keyboards"] .li__text { font-weight: 800; font-stretch: 80%; letter-spacing: -.02em; }
+.is-world[data-world="chairs"] .li__text { font-weight: 800; font-stretch: 125%; letter-spacing: -.03em; }
+.is-world[data-world="jokes"] .li__text { font-weight: 600; font-variation-settings: "SOFT" 100, "WONK" 1; letter-spacing: -.03em; }
+.is-world[data-world="fountain-pens"] .li__tease, .is-world[data-world="chairs"] .li__tease { color: var(--w-acc); }
+
+/* each icon does its page's thing */
+.is-world[data-world="watches"] .li__ico { animation: w-tick 8s steps(64) infinite; }
+@keyframes w-tick { to { rotate: 360deg; } }
+.is-world[data-world="fountain-pens"] .li__ico { animation: w-write 1.1s ease-in-out infinite alternate; }
+@keyframes w-write { from { translate: -4px 2px; rotate: -6deg; } to { translate: 4px -1px; rotate: 4deg; } }
+.is-world[data-world="keyboards"] .li__ico { animation: w-press .9s var(--ease-out) infinite; }
+@keyframes w-press { 0%, 100% { translate: 0 0; } 12% { translate: 0 5px; } 30% { translate: 0 0; } }
+.is-world[data-world="chairs"] .li__ico { scale: 1.25 1; }
+.is-world[data-world="jokes"] .li__ico { animation: w-wiggle 1.6s ease-in-out infinite; }
+@keyframes w-wiggle { 0%, 60%, 100% { rotate: 0deg; } 70% { rotate: -10deg; } 80% { rotate: 8deg; } 90% { rotate: -4deg; } }
 .pane__list li:last-child { border-bottom: 1px solid currentColor; }
 
 /* "amateur" gets underlined by hand — the scribble draws itself just after the word arrives */
@@ -357,13 +459,11 @@ img { display: block; max-width: 100%; }
 .lines .mask.is-load .word { animation: line-up 1.1s calc(.35s + var(--l) * .12s) cubic-bezier(.2, .7, .2, 1) backwards; }
 @keyframes line-up { from { translate: 0 115%; } }
 
-.label.reveal:not(.is-in), .specimen.reveal:not(.is-in) { opacity: 0; }
+.label.reveal:not(.is-in), .press.reveal:not(.is-in) { opacity: 0; }
 .label.is-in { animation: arrive .9s cubic-bezier(.2, .7, .2, 1) backwards; }
-.specimen.is-in {
-  animation: axes 5s ease-in-out infinite, card-in 1.2s .4s cubic-bezier(.3, 1.4, .5, 1) backwards;
-}
+.press.is-in { animation: card-in 1s .3s cubic-bezier(0.23, 1, 0.32, 1) backwards; }
 @keyframes card-in {
-  from { opacity: 0; scale: .85; rotate: -4deg; }
+  from { opacity: 0; scale: .96; translate: 0 16px; }
 }
 
 .pane__list.reveal:not(.is-in) li { opacity: 0; }
@@ -417,7 +517,10 @@ img { display: block; max-width: 100%; }
 @media (max-width: 767px) {
   .pane__grid { grid-template-columns: 1fr; }
   .pane__art { max-width: min(70%, 320px); }
-  .pane__list li > a { grid-template-columns: 2.2em 1fr auto; gap: 12px; }
+  .pane__list li > a { grid-template-columns: 2.2em 1fr auto; grid-template-areas: "n t i" ". s i"; gap: 2px 12px; }
+  .li__num { grid-area: n; } .li__text { grid-area: t; } .li__ico { grid-area: i; }
+  .li__tease { grid-area: s; text-align: left; font-size: 10px; translate: 0 6px; }
+  .pane__list a.is-world .li__tease { translate: 0 0; }
   /* Footer stacks: wordmark space → illustration fills the gap → link → meta row */
   .footer { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto auto; }
   .footer__main { grid-row: 2; }
@@ -429,8 +532,12 @@ img { display: block; max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .w-fonts > span, .specimen, .specimen__glyph,
+  .w-fonts > span, .press,
   .doodle path { animation: none; opacity: 1; }
+  .pane__list li > a::before { clip-path: none; opacity: 0; transition: opacity .3s ease; }
+  .pane__list a.is-world::before { opacity: 1; }
+  .pane__list a.is-world .li__ico { animation: none; }
+  .sort.is-new, .press__print.is-fresh span { animation: none; }
   .scribble::after { animation: none; clip-path: none; }
   .footer__main, .footer__art { animation: none; }
 }

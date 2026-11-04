@@ -153,14 +153,23 @@
       <p class="label"><span class="label__num">02</span> Type</p>
       <div class="pane__grid">
         <p class="pane__big">Typefaces came first. I’ve spent an unreasonable amount of time learning the difference between a <em class="w-typeface">typeface</em> and a <span class="w-font">font</span>, and so far nobody has asked.</p>
-        <!-- Nobody asked, so here's the answer anyway: one typeface, endless fonts -->
-        <figure class="specimen" aria-hidden="true">
-          <div class="specimen__glyph">Aa</div>
-          <figcaption class="specimen__cap">
-            <span>1 typeface</span>
-            <span class="specimen__readout"></span>
-            <span>∞ fonts</span>
-          </figcaption>
+        <!-- Nobody asked, so here's the answer anyway: a typeface is the design;
+             a font was one case of metal letters cast from it, one size, one style -->
+        <figure class="press" id="press">
+          <div class="press__cases" role="radiogroup" aria-label="Choose a font from the typeface">
+            <button type="button" role="radio" aria-checked="true" data-case="regular">Regular</button>
+            <button type="button" role="radio" aria-checked="false" data-case="italic"><i>Italic</i></button>
+            <button type="button" role="radio" aria-checked="false" data-case="bold"><b>Bold</b></button>
+          </div>
+          <label class="press__stick">
+            <span class="press__sorts" id="sorts" aria-hidden="true"></span>
+            <input class="press__input" id="press-input" type="text" value="font" maxlength="9" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Set a word in metal type, up to nine letters">
+          </label>
+          <div class="press__paper"><p class="press__print" id="print" aria-live="polite"></p></div>
+          <div class="press__foot">
+            <figcaption>Nobody asked, so: a <em>typeface</em> is the design. A <span class="press__font">font</span> was one case of metal letters cast from it, in one size and one style. Set a word; pick a case.</figcaption>
+            <button type="button" class="press__go" id="press-go">Print</button>
+          </div>
         </figure>
       </div>
     </section>
@@ -169,11 +178,11 @@
       <p class="label"><span class="label__num">03</span> Things made with care</p>
       <p class="pane__lede">The rest of my attention goes to things made with care.</p>
       <ul class="pane__list">
-        <li><a href="/watches/"><span class="li__num">i</span><span class="li__text">Watches</span><svg class="li__ico" aria-hidden="true"><use href="#i-watch"/></svg></a></li>
-        <li><a href="/fountain-pens/"><span class="li__num">ii</span><span class="li__text">Fountain pens</span><svg class="li__ico" aria-hidden="true"><use href="#i-pen"/></svg></a></li>
-        <li><a href="/keyboards/"><span class="li__num">iii</span><span class="li__text">Mechanical keyboards</span><svg class="li__ico" aria-hidden="true"><use href="#i-key"/></svg></a></li>
-        <li><a href="/chairs/"><span class="li__num">iv</span><span class="li__text">A good chair</span><svg class="li__ico" aria-hidden="true"><use href="#i-chair"/></svg></a></li>
-        <li><a href="/jokes/"><span class="li__num">v</span><span class="li__text">A joke that lands</span><svg class="li__ico" aria-hidden="true"><use href="#i-joke"/></svg></a></li>
+        <li><a href="/watches/" data-world="watches"><span class="li__num">i</span><span class="li__text"><span class="kern-w">W</span>atches</span><span class="li__tease">A movement you can slow down</span><svg class="li__ico" aria-hidden="true"><use href="#i-watch"/></svg></a></li>
+        <li><a href="/fountain-pens/" data-world="fountain-pens"><span class="li__num">ii</span><span class="li__text">Fountain pens</span><span class="li__tease">A nib you can write with</span><svg class="li__ico" aria-hidden="true"><use href="#i-pen"/></svg></a></li>
+        <li><a href="/keyboards/" data-world="keyboards"><span class="li__num">iii</span><span class="li__text">Mechanical keyboards</span><span class="li__tease">A board you can play</span><svg class="li__ico" aria-hidden="true"><use href="#i-key"/></svg></a></li>
+        <li><a href="/chairs/" data-world="chairs"><span class="li__num">iv</span><span class="li__text">A good chair</span><span class="li__tease">A century, drawn in line</span><svg class="li__ico" aria-hidden="true"><use href="#i-chair"/></svg></a></li>
+        <li><a href="/jokes/" data-world="jokes"><span class="li__num">v</span><span class="li__text">A joke that lands</span><span class="li__tease">A room that judges your timing</span><svg class="li__ico" aria-hidden="true"><use href="#i-joke"/></svg></a></li>
       </ul>
     </section>
 
@@ -251,6 +260,7 @@
 
   <script src="/hero.js" defer></script>
   <script src="/reveal.js" defer></script>
+  <script src="/home.js" defer></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>
