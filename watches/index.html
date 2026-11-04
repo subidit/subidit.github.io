@@ -4,54 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Watches · Subidit Nandy</title>
-  <meta name="description" content="Why a small machine that does one job, slowly, for years, is worth caring about.">
+  <meta name="description" content="How a mechanical watch keeps time: a spring, a train of wheels, an escapement and a balance beating eight times a second.">
   <meta name="author" content="Subidit Nandy">
   <link rel="canonical" href="https://subidit.com/watches/">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#4b2a23">
-
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b111c">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://subidit.com/watches/">
   <meta property="og:title" content="Watches · Subidit Nandy">
-  <meta property="og:description" content="Why a small machine that does one job, slowly, for years, is worth caring about.">
+  <meta property="og:description" content="How a mechanical watch keeps time: a spring, a train of wheels, an escapement and a balance beating eight times a second.">
   <meta property="og:image" content="https://subidit.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/eb-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/style.css">
-
-  <script>
-    // Runs before first paint: pins --screen to one screen's height (on touch
-    // screens only re-measured when the width changes, so the toolbar sliding
-    // doesn't resize the page), and adds .is-ready once the fonts are in.
-    (function () {
-      var root = document.documentElement;
-      root.classList.add('js');
-      var touch = window.matchMedia('(pointer: coarse)').matches;
-      var lastWidth = 0;
-      function measure() {
-        var w = window.innerWidth;
-        if (touch && w === lastWidth) return;
-        lastWidth = w;
-        root.style.setProperty('--screen', window.innerHeight + 'px');
-      }
-      measure();
-      window.addEventListener('resize', measure);
-      function ready() { root.classList.add('is-ready'); }
-      if (!document.fonts || !document.fonts.load) return ready();
-      Promise.race([
-        Promise.all([
-          document.fonts.load('400 1em "EB Garamond"'),
-          document.fonts.load('italic 400 1em "EB Garamond"')
-        ]),
-        new Promise(function (resolve) { setTimeout(resolve, 2500); })
-      ]).then(ready, ready);
-    })();
-  </script>
-
+  <link rel="preload" href="/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/watches/watches.css">
+  <script>document.documentElement.classList.add('js');</script>
   <!-- Analytics -->
   <script>
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="gu mu yu bu ku init Vu Gu zu Uu Ku el Wu Yu ju rh oh ah uh hh dh capture getExtension Zu fu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh Su xu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug il Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -62,57 +30,124 @@
     })
 </script>
 </head>
-<body class="pane--rose">
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <symbol id="i-watch" viewBox="0 0 48 48"><path d="M18 5h12l1.6 8.4M18 5l-1.6 8.4M18 43h12l1.6-8.4M18 43l-1.6-8.4"/><path d="M20 8.5h8M20 39.5h8"/><circle cx="24" cy="24" r="11.5"/><circle cx="24" cy="24" r="8.5"/><path d="M24 15.5v1.8M32.5 24h-1.8M24 32.5v-1.8M15.5 24h1.8"/><path d="M24 24v-5.5M24 24l3.6 2.2"/><path d="M35.5 22h2.5a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-.8.8h-2.5"/></symbol>
-    </defs>
-  </svg>
+<body>
+  <header class="bar">
+    <a href="/#things"><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M14.5 8h-13M6.5 3l-5 5 5 5"/></svg>Subidit Nandy</a>
+    <span><span class="bar__long">Things made with care, </span>i of v</span>
+  </header>
 
-  <main class="thing">
-    <header class="thing-head label">
-      <a href="/#things"><span class="arr arr--left" aria-hidden="true"></span> Subidit Nandy</a>
-      <span>Things made with care · i / v</span>
-    </header>
-
-    <section class="thing__hero">
-      <h1 class="thing__title"><span style="--n:0">Watches</span></h1>
-      <svg class="thing__ico" aria-hidden="true"><use href="#i-watch"/></svg>
-      <p class="pane__lede thing__lede">A watch is a small machine that does one job, slowly, for years, and I find that unreasonably moving.</p>
+  <main>
+    <section class="hero">
+      <div class="hero__text">
+        <h1><span class="kern-w">W</span>atches</h1>
+        <p class="hero__lede">A small machine that does one job, slowly, for years. It has no battery and no signal, only a spring, a few wheels and a heartbeat, and it is <em>right now</em> keeping time.</p>
+      </div>
+      <figure class="dial" aria-label="A watch dial showing the current time">
+        <svg viewBox="-200 -200 400 400" id="dial">
+          <circle class="dial__ring" r="192"/>
+          <circle class="dial__face" r="182"/>
+          <g id="dial-ticks"></g>
+          <g class="hand hand--hour" id="hand-h"><path d="M-7 22 L-5 -92 L0 -104 L5 -92 L7 22 Z"/><path class="lume" d="M-3 -14 L-2.6 -86 L0 -94 L2.6 -86 L3 -14 Z"/></g>
+          <g class="hand hand--min" id="hand-m"><path d="M-6 24 L-4 -150 L0 -162 L4 -150 L6 24 Z"/><path class="lume" d="M-2.6 -16 L-2 -144 L0 -152 L2 -144 L2.6 -16 Z"/></g>
+          <g class="hand hand--sec" id="hand-s"><path d="M-1 46 L-0.8 -170 L0.8 -170 L1 46 Z"/><circle cy="34" r="6"/><circle cy="-128" r="4.5" class="lume-ring"/></g>
+          <circle class="dial__cap" r="5"/>
+        </svg>
+        <figcaption>The time where you are. Watch the seconds hand: it doesn't tick once a second, it steps eight times.</figcaption>
+      </figure>
     </section>
 
-    <section class="thing__notes" aria-label="Notes">
-      <div class="thing__note">
-        <p class="label"><span class="label__num">01</span> Why</p>
-        <p class="pane__big">Your phone keeps better time. A mechanical watch is a couple of hundred tiny parts agreeing with each other, wound by your wrist, and it will <em>still be agreeing</em> long after the phone is landfill.</p>
+    <section class="chapter longitude reveal">
+      <h2>Lost at sea</h2>
+      <div class="prose">
+        <p>For most of history, a ship's navigator could find latitude from the height of the sun, but not longitude. That needed a clock. The Earth turns fifteen degrees an hour, so if you know the time at home and the time where you are, the difference tells you how far east or west you've sailed. A clock four seconds wrong puts you a nautical mile off.</p>
+        <p>Pendulum clocks were useless on a rolling deck. In 1714 Parliament offered £20,000 for a practical answer, and a self-taught carpenter named John Harrison spent most of his life on it. His fourth timekeeper, <em>H4</em>, was barely bigger than a pocket watch. On its trial voyage to Jamaica in 1761 it lost about five seconds in eighty-one days.</p>
       </div>
-      <div class="thing__note">
-        <p class="label"><span class="label__num">02</span> What I look for</p>
-        <p class="pane__big">A dial I can read at a glance, a case that doesn’t fight my cuff, and a movement someone could still service in forty years. Hand-finished edges are a bonus I pretend not to care about.</p>
+      <p class="pull">Five seconds, in eighty-one days, at sea.</p>
+    </section>
+
+    <section class="movement" aria-labelledby="movement-title">
+      <div class="movement__stage">
+        <svg viewBox="40 40 520 540" id="movement" data-active="power" role="img" aria-label="A diagram of a watch movement: mainspring barrel, gear train, escapement and balance wheel">
+          <g id="p-power" class="part"></g>
+          <g id="p-train" class="part"></g>
+          <g id="p-escapement" class="part"></g>
+          <g id="p-balance" class="part"></g>
+        </svg>
+        <div class="speed">
+          <label for="speed">Slow time down</label>
+          <input type="range" id="speed" min="0" max="100" value="22" aria-valuetext="Actual speed">
+          <output id="speed-out" for="speed">1/8 speed</output>
+        </div>
       </div>
-      <div class="thing__note">
-        <p class="label"><span class="label__num">03</span> What I’ve learned</p>
-        <p class="pane__big">Accuracy is overrated. A good one drifts a few seconds a day, and checking <em>how many</em> is half the fun.</p>
+      <div class="movement__steps">
+        <h2 id="movement-title">How it keeps time</h2>
+        <article class="step" data-part="power">
+          <h3>A spring, wound tight</h3>
+          <p>Everything starts with a ribbon of steel coiled inside a drum called the barrel. Winding the crown, or the swing of your arm turning a weighted rotor, tightens it. Fully wound, a typical mainspring holds enough energy for about forty hours.</p>
+        </article>
+        <article class="step" data-part="train">
+          <h3>A train of wheels</h3>
+          <p>Left alone, the spring would unwind in a second. A chain of gears, each driving a smaller pinion, slows it and divides its turning into hours, minutes and seconds. The fourth wheel turns exactly once a minute; put a hand on its arbor and you have a seconds hand.</p>
+        </article>
+        <article class="step" data-part="escapement">
+          <h3>The escapement</h3>
+          <p>This is the clever part. A pallet fork locks the escape wheel, then lets it slip forward half a tooth at a time, the tick and the tock. Each time, the tooth gives the fork a tiny push, which it passes on to keep the balance swinging. The lever escapement was invented by Thomas Mudge around 1755, and nearly every mechanical watch still uses it.</p>
+        </article>
+        <article class="step" data-part="balance">
+          <h3>The balance, the heartbeat</h3>
+          <p>A weighted wheel on a hair-thin spiral spring swings back and forth at a steady rate, whatever the spring's tension. Most modern watches beat 28,800 times an hour: four full swings, eight ticks, every second. Get this wrong by one part in ten thousand and the watch drifts nine seconds a day.</p>
+        </article>
       </div>
     </section>
 
-    <section class="thing__mine">
-      <p class="label"><span class="label__num">04</span> Mine</p>
-      <dl>
-          <div><dt>Most days</dt><dd><span class="fill">the one on my wrist</span></dd></div>
-          <div><dt>In the drawer</dt><dd><span class="fill">the one waiting its turn</span></dd></div>
-          <div><dt>One day</dt><dd><span class="fill">the grail</span></dd></div>
-      </dl>
+    <section class="chapter beats reveal" aria-labelledby="beats-title">
+      <h2 id="beats-title">Heartbeats</h2>
+      <p class="prose-one">The faster the balance, the smoother the seconds hand and the less a knock to the wrist upsets it. Here are the four you'll meet, running side by side.</p>
+      <div class="beats__row">
+        <figure class="mini"><svg viewBox="-50 -50 100 100" data-beats="1"></svg><figcaption><b>Quartz</b><span>1 step a second</span></figcaption></figure>
+        <figure class="mini"><svg viewBox="-50 -50 100 100" data-beats="6"></svg><figcaption><b>21,600 an hour</b><span>6 a second, older and slower</span></figcaption></figure>
+        <figure class="mini"><svg viewBox="-50 -50 100 100" data-beats="8"></svg><figcaption><b>28,800 an hour</b><span>8 a second, the modern standard</span></figcaption></figure>
+        <figure class="mini"><svg viewBox="-50 -50 100 100" data-beats="10"></svg><figcaption><b>36,000 an hour</b><span>10 a second, the high-beat few</span></figcaption></figure>
+      </div>
+      <p class="aside">A quartz crystal vibrates 32,768 times a second. That's two to the fifteenth power, so fifteen halvings in a row give exactly one pulse a second, and the motor steps the hand once.</p>
     </section>
 
-    <nav class="thing-next label" aria-label="More things">
-      <a class="thing-next__prev" href="/#things"><span class="arr arr--left" aria-hidden="true"></span> All things<span class="thing-next__big">Things made with care</span></a>
-      <a class="thing-next__next" href="/fountain-pens/">Next <span class="arr arr--right" aria-hidden="true"></span><span class="thing-next__big">Fountain pens</span></a>
-    </nav>
+    <section class="chapter rubies reveal" aria-labelledby="rubies-title">
+      <h2 id="rubies-title">Seventeen rubies</h2>
+      <div class="prose">
+        <p>The “jewels” on a movement aren't decoration. They're bearings: tiny drilled rubies that the steel pivots turn in, because ruby is hard, smooth and barely wears. Since Auguste Verneuil worked out how to grow them in a flame in 1902, they've cost almost nothing. A typical hand-wound movement uses seventeen, one for each place that friction matters.</p>
+      </div>
+      <div class="jewels" aria-hidden="true"></div>
+    </section>
+
+    <section class="chapter crisis reveal" aria-labelledby="crisis-title">
+      <h2 id="crisis-title">Christmas Day, 1969</h2>
+      <div class="prose">
+        <p>Seiko put the Astron on sale in Tokyo, the first quartz wristwatch. It cost as much as a small car and kept time to within five seconds a month, far better than anything mechanical. Within fifteen years quartz was cheap, and the Swiss industry, which had owned the craft for two centuries, nearly died.</p>
+      </div>
+      <figure class="people">
+        <div class="people__dots" id="people" role="img" aria-label="90 dots, one per thousand Swiss watch jobs in 1970; 57 of them fade, leaving 33 by 1984"></div>
+        <figcaption><span>Each dot is a thousand people working in the Swiss watch industry.</span> <span><b>1970</b> about 90,000. <b>1984</b> about 33,000.</span></figcaption>
+      </figure>
+      <div class="prose">
+        <p>It came back as something different. A mechanical watch is now a thing you choose rather than need, made for people who like knowing there's a small, patient machine on their wrist.</p>
+      </div>
+    </section>
+
+    <section class="chapter close reveal">
+      <h2>Accuracy is overrated</h2>
+      <div class="prose">
+        <p>An officially certified chronometer may gain six seconds a day or lose four. Your phone is far better. A good mechanical watch drifts a few seconds a day, and checking <em>how many</em> is half the fun.</p>
+      </div>
+    </section>
   </main>
 
-  <script src="/reveal.js" defer></script>
+  <nav class="next" aria-label="More things">
+    <a href="/#things" class="next__prev"><span>All things</span>Things made with care</a>
+    <a href="/fountain-pens/" class="next__next"><span>Next</span>Fountain pens<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h13M9.5 3l5 5-5 5"/></svg></a>
+  </nav>
 
+  <script src="/watches/watches.js" defer></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>
 </body>

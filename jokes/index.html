@@ -4,54 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>A joke that lands · Subidit Nandy</title>
-  <meta name="description" content="Why a good joke counts as a thing made with care.">
+  <meta name="description" content="Four thousand years of jokes, the anatomy of one, why we laugh, and a stage where you can test your own timing.">
   <meta name="author" content="Subidit Nandy">
   <link rel="canonical" href="https://subidit.com/jokes/">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f4eee1">
-
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#120e0c">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://subidit.com/jokes/">
   <meta property="og:title" content="A joke that lands · Subidit Nandy">
-  <meta property="og:description" content="Why a good joke counts as a thing made with care.">
+  <meta property="og:description" content="Four thousand years of jokes, the anatomy of one, why we laugh, and a stage where you can test your own timing.">
   <meta property="og:image" content="https://subidit.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/eb-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/style.css">
-
-  <script>
-    // Runs before first paint: pins --screen to one screen's height (on touch
-    // screens only re-measured when the width changes, so the toolbar sliding
-    // doesn't resize the page), and adds .is-ready once the fonts are in.
-    (function () {
-      var root = document.documentElement;
-      root.classList.add('js');
-      var touch = window.matchMedia('(pointer: coarse)').matches;
-      var lastWidth = 0;
-      function measure() {
-        var w = window.innerWidth;
-        if (touch && w === lastWidth) return;
-        lastWidth = w;
-        root.style.setProperty('--screen', window.innerHeight + 'px');
-      }
-      measure();
-      window.addEventListener('resize', measure);
-      function ready() { root.classList.add('is-ready'); }
-      if (!document.fonts || !document.fonts.load) return ready();
-      Promise.race([
-        Promise.all([
-          document.fonts.load('400 1em "EB Garamond"'),
-          document.fonts.load('italic 400 1em "EB Garamond"')
-        ]),
-        new Promise(function (resolve) { setTimeout(resolve, 2500); })
-      ]).then(ready, ready);
-    })();
-  </script>
-
+  <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/jokes/jokes.css">
+  <script>document.documentElement.classList.add('js');</script>
   <!-- Analytics -->
   <script>
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="gu mu yu bu ku init Vu Gu zu Uu Ku el Wu Yu ju rh oh ah uh hh dh capture getExtension Zu fu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh Su xu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug il Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -62,63 +30,102 @@
     })
 </script>
 </head>
-<body class="pane--paper">
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <symbol id="i-joke" viewBox="0 0 48 48"><path d="M9 10h26a4 4 0 0 1 4 4v13a4 4 0 0 1-4 4H22l-8 7v-7H9a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4Z"/><path d="M13 15v11M13 21c1.4-2 5-2 5 .8V26"/><circle cx="25.5" cy="22.5" r="3"/><path d="M28.5 19.5V26"/></symbol>
-    </defs>
-  </svg>
+<body>
+  <header class="bar">
+    <a href="/#things"><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M14.5 8h-13M6.5 3l-5 5 5 5"/></svg>Subidit Nandy</a>
+    <span><span class="bar__long">Things made with care, </span>v of v</span>
+  </header>
 
-  <main class="thing">
-    <header class="thing-head label">
-      <a href="/#things"><span class="arr arr--left" aria-hidden="true"></span> Subidit Nandy</a>
-      <span>Things made with care · v / v</span>
-    </header>
-
-    <section class="thing__hero">
-      <h1 class="thing__title"><span style="--n:0">A</span> <span style="--n:1">joke</span> <span style="--n:2">that</span> <span style="--n:3">lands</span></h1>
-      <svg class="thing__ico" aria-hidden="true"><use href="#i-joke"/></svg>
-      <p class="pane__lede thing__lede">Made with care counts here too. A joke has fewer parts than a watch, and every one of them has to be in exactly the right place.</p>
+  <main>
+    <section class="hero" id="stage">
+      <div class="hero__inner">
+        <h1><span>A joke</span> <span>that <em>lands</em></span></h1>
+        <p class="hero__lede">Made with care counts here too. A joke has fewer parts than a watch, and every one of them has to be in exactly the right place.</p>
+      </div>
+      <svg class="mic" viewBox="0 0 80 260" aria-hidden="true">
+        <rect x="26" y="0" width="28" height="46" rx="14" class="mic__head"/>
+        <path d="M28 14h24M28 22h24M28 30h24" class="mic__grille"/>
+        <path d="M40 46 V236 M14 250 L40 236 L66 250" class="mic__stand"/>
+      </svg>
+      <div class="spot" aria-hidden="true"></div>
     </section>
 
-    <section class="thing__notes" aria-label="Notes">
-      <div class="thing__note">
-        <p class="label"><span class="label__num">01</span> Why</p>
-        <p class="pane__big">It’s the cheapest well-made thing there is, and you can give it away <em>without losing it</em>.</p>
-      </div>
-      <div class="thing__note">
-        <p class="label"><span class="label__num">02</span> What I look for</p>
-        <p class="pane__big">Economy. A setup that doesn’t announce itself, a turn you didn’t see coming, and not one word more than it needs.</p>
-      </div>
-      <div class="thing__note">
-        <p class="label"><span class="label__num">03</span> What I’ve learned</p>
-        <p class="pane__big">Timing is a mechanism, like a watch’s escapement: <em>the pause</em> is doing most of the work.</p>
+    <section class="old reveal" aria-labelledby="old-title">
+      <h2 id="old-title">Four thousand years of the same jokes</h2>
+      <ol class="ages">
+        <li>
+          <p class="when">Sumer, about 1900 BC</p>
+          <blockquote>Something which has never occurred since time immemorial: a young woman did not fart in her husband's lap.</blockquote>
+          <p class="gloss">The oldest joke anyone has found. Nobody is quite sure why it was funny, but it is, unmistakably, a fart joke.</p>
+        </li>
+        <li>
+          <p class="when">Greece, about the 4th century AD</p>
+          <blockquote>A talkative barber asked a man, “How shall I cut your hair?” “In silence.”</blockquote>
+          <p class="gloss">From the <i>Philogelos</i>, the “laughter-lover”, the oldest joke book that survives: some 265 jokes, many about a hapless egghead who could be the hero of a sitcom today.</p>
+        </li>
+        <li>
+          <p class="when">The internet, 2002</p>
+          <blockquote>Two hunters are out in the woods when one of them collapses. His friend calls the emergency services: “My friend is dead! What can I do?” The operator says, “Calm down. First, let's make sure he's dead.” There's a silence, then a gunshot. “OK, now what?”</blockquote>
+          <p class="gloss">The winner of LaughLab, a year-long experiment in which people around the world submitted and rated tens of thousands of jokes to find the funniest.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="anatomy" aria-labelledby="anatomy-title">
+      <h2 id="anatomy-title" class="reveal-one">Taking one apart</h2>
+      <p class="anatomy__lede reveal-one">A joke builds a picture in your head, then shows you that the same words made a different picture all along. Tap the last word.</p>
+      <div class="specimen" id="specimen">
+        <p class="specimen__line"><span class="seg seg--setup" data-note="setup">I told my wife she was drawing her <span class="brow">eyebrows too high</span>.</span> <span class="seg seg--punch" data-note="punch">She looked <button type="button" class="pivot" id="pivot" aria-describedby="reading">surprised</button>.</span></p>
+        <div class="readings" aria-live="polite">
+          <p class="reading is-on" data-r="0"><b>First you hear</b> how she felt about it. Hurt, maybe. A little startled.</p>
+          <p class="reading" data-r="1"><b>Then you see</b> her face. Eyebrows drawn that high make anyone look permanently astonished. The punchline was a description all along.</p>
+        </div>
+        <ul class="labels" aria-hidden="true">
+          <li class="label label--setup"><b>Setup</b> paints the picture and plants the word that matters.</li>
+          <li class="label label--pause"><b>The pause</b> lets the first picture settle.</li>
+          <li class="label label--punch"><b>Punchline</b> as short as possible, with the switch at the very end.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="joke" aria-label="An example">
-      <p class="label"><span class="label__num">A</span> Exhibit A</p>
-      <p class="pane__big" style="margin-top: 3vh">I’m reading a book about anti-gravity.</p>
-      <p class="joke__punch">It’s impossible to put down.</p>
-    </section>
-
-    <section class="thing__mine">
-      <p class="label"><span class="label__num">04</span> Mine</p>
-      <dl>
-          <div><dt>Favourite joke</dt><dd><span class="fill">the joke</span></dd></div>
-          <div><dt>Funniest person I know</dt><dd><span class="fill">name</span></dd></div>
-          <div><dt>Best one of mine</dt><dd><span class="fill">the one that landed</span></dd></div>
+    <section class="why" aria-labelledby="why-title">
+      <h2 id="why-title" class="reveal-one">Why we laugh, according to people who thought hard about it</h2>
+      <dl class="theories">
+        <div class="reveal-one"><dt class="t1">Superiority</dt><dd>Thomas Hobbes, 1650s. We laugh at someone else's misfortune or stupidity, because for a moment we feel above it. Explains the egghead jokes, and a lot of playgrounds.</dd></div>
+        <div class="reveal-one"><dt class="t2">Relief</dt><dd>Herbert Spencer, then Sigmund Freud. A laugh lets off nervous energy that built up around something we're not supposed to say. Explains why the oldest joke is about a fart.</dd></div>
+        <div class="reveal-one"><dt class="t3">Incongruity</dt><dd>Kant, then Schopenhauer. We expect one thing, get another, and for a split second the mismatch makes sense. The theory most comedians would recognise.</dd></div>
+        <div class="reveal-one"><dt class="t4">Benign violation</dt><dd>Peter McGraw and Caleb Warren, 2010. Something seems wrong, threatening or rude, and at the same time it's fine. Too safe and it's dull; too wrong and it's just upsetting.</dd></div>
       </dl>
     </section>
 
-    <nav class="thing-next label" aria-label="More things">
-      <a class="thing-next__prev" href="/chairs/"><span class="arr arr--left" aria-hidden="true"></span> Previous<span class="thing-next__big">A good chair</span></a>
-      <a class="thing-next__next" href="/#contact">The end <span class="arr arr--right" aria-hidden="true"></span><span class="thing-next__big">Back to the start</span></a>
-    </nav>
+    <section class="timing" id="timing" aria-labelledby="timing-title">
+      <div class="timing__head">
+        <h2 id="timing-title">Your timing</h2>
+        <p>Here's a room. You deliver the punchline. The only thing that's yours to judge is the pause.</p>
+      </div>
+      <div class="room">
+        <div class="mc">
+          <p class="mc__setup" id="setup" aria-live="polite"></p>
+          <p class="mc__punch" id="punch" aria-live="polite"></p>
+        </div>
+        <div class="verdict" id="verdict" aria-live="polite"></div>
+        <button type="button" class="go" id="go">Tell a joke</button>
+        <div class="crowd" id="crowd" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="close reveal">
+      <h2>What I've learned</h2>
+      <p>Economy: a setup that doesn't announce itself, a turn you didn't see coming, and not one word more than it needs. Timing is a mechanism, like a watch's escapement, and the pause does most of the work. And it's the cheapest well-made thing there is. You can give it away <em>without losing it</em>.</p>
+    </section>
   </main>
 
-  <script src="/reveal.js" defer></script>
+  <nav class="next" aria-label="More things">
+    <a href="/chairs/" class="next__prev"><span>Previous</span>A good chair</a>
+    <a href="/#contact" class="next__next"><span>The end</span>Back to the start<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h13M9.5 3l5 5-5 5"/></svg></a>
+  </nav>
 
+  <script src="/jokes/jokes.js" defer></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>
 </body>

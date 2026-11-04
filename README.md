@@ -2,18 +2,18 @@
 
 The personal site of Subidit Nandy, an enthusiastic amateur.
 
-It's a static site with no build step: a home page, a page for each of the things in its third section, and a 404. Its only JavaScript is a short script in the page head, `hero.js` and `reveal.js`. GitHub Pages serves it from the `master` branch at [subidit.com](https://subidit.com).
+It's a static site with no build step: a home page, a page for each of the things in its third section, and a 404. The home page's only JavaScript is a short script in the page head, `hero.js` and `reveal.js`; each thing page has its own small script. GitHub Pages serves it from the `master` branch at [subidit.com](https://subidit.com).
 
 ## Files
 
 | File | What it is |
 | --- | --- |
 | `index.html` | The page: a hero, four sections (About, Type, Things, Amateur) and a footer |
-| `watches/`, `fountain-pens/`, `keyboards/`, `chairs/`, `jokes/` | One page for each item in "Things made with care"; each list row on the home page links to its page |
-| `style.css` | All styles and animations |
+| `watches/`, `fountain-pens/`, `keyboards/`, `chairs/`, `jokes/` | One page for each item in "Things made with care", each a self-contained project with its own `index.html`, stylesheet and script |
+| `style.css` | The home page's and 404's styles and animations |
 | `hero.js` | The hero's ink currents |
 | `reveal.js` | Animates text and drawings in as they come on screen, and the footer's elastic edge |
-| `fonts/` | EB Garamond (roman and italic) and DM Mono, Latin subsets, self-hosted |
+| `fonts/` | Latin subsets, self-hosted: EB Garamond and DM Mono for the home page, and one face for each thing page (Bodoni Moda, Instrument Serif with Newsreader, Bricolage Grotesque, Archivo, Fraunces) |
 | `404.html` | The page shown for missing addresses |
 | `favicon.svg`, `favicon.png` | Browser tab icons |
 | `og-image.png` | The preview image for links shared on social media |
@@ -30,12 +30,18 @@ It's a static site with no build step: a home page, a page for each of the thing
 - **Text:** statements rise line by line out of a mask as you scroll, like a responsive line split: `reveal.js` puts each word in a clipping `.mask`, groups the words into lines by where they sit (again on every resize), and moves each line up with the scroll. Lines already on screen when a page opens rise in by themselves. Labels and list items rise in. Without JavaScript nothing is hidden.
 - **Footer:** its top edge is elastic. Scrolling into it bends the edge with the scroll, and it springs back flat with a bounce when the scroll stops (`reveal.js` draws it as an SVG curve).
 - **Arrows:** drawn with CSS masks rather than typed, because neither font has ↗ or ↩ and iOS fills the gap with colour emoji.
-- **Thing pages:** each one takes a colour from the home page and has a big title, its icon drawing itself, three short notes, a "Mine" list and links to the previous and next thing. The dashed boxes in "Mine" (`<span class="fill">`) are gaps to fill in with real picks. Each page carries its own copy of its icon's `<symbol>`.
-- **Analytics:** PostHog and Cloudflare Web Analytics, loaded on both pages.
+- **Thing pages:** each is its own small portfolio project, with its own palette, typeface and one interactive centrepiece. They share only a top bar, a link back home, and previous/next links at the foot.
+  - **Watches** (`watches/`): a night dial in navy, lume and gilt, set in Bodoni Moda. A live dial whose seconds hand steps eight times a second; a working movement (barrel, gear train, escapement, balance) that ticks at true ratios, with a slider to slow time down, highlighting each part as its step scrolls by; four seconds hands at different beat rates; and the quartz crisis as ninety dots, one per thousand jobs.
+  - **Fountain pens** (`fountain-pens/`): laid paper in Instrument Serif and Newsreader. An animated cross-section of a feed (ink down, air up), a nib anatomy you can point at, and a writing pad: an italic nib is modelled as a short edge at a fixed angle, swept along the stroke, so thick and thin come from direction alone. Ink dries as you watch; iron gall goes on pale and darkens. The chosen ink becomes the whole page's accent through a registered `--ink` colour property that transitions.
+  - **Mechanical keyboards** (`keyboards/`): charcoal, cream and orange, in Bricolage Grotesque. A 60% keyboard that follows your real keys (or taps), with linear, tactile and clicky switch sounds synthesised in WebAudio; a force curve with a dot that rides it on every press; and a switch that comes apart as you scroll.
+  - **A good chair** (`chairs/`): a gallery wall in Archivo, whose width axis lets the title arrive condensed and sit down wide. Nine chairs from 1859 to 1994 in a track that moves sideways as you scroll down, each drawing itself in line; and a backrest you can recline, after Nachemson and Andersson's disc-pressure studies.
+  - **A joke that lands** (`jokes/`): a stage at night in Fraunces, with its soft and wonky axes. A spotlight follows the cursor (and wanders on its own), a joke flips between its two readings, four theories of laughter each set in a different temperament of the same face, and a room where you deliver the punchline and the audience judges your pause.
+  - All follow reduced motion: drawings and text show at once, the movement and spotlight hold still, and the chair gallery becomes a plain sideways scroll.
+- **Analytics:** PostHog and Cloudflare Web Analytics, loaded on every page.
 
 ## Editing
 
-Serve the folder locally, because both pages load `/style.css` and `/fonts/` from the site root:
+Serve the folder locally, because the pages load their styles, scripts and `/fonts/` from the site root:
 
 ```sh
 python3 -m http.server

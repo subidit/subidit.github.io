@@ -4,54 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fountain pens · Subidit Nandy</title>
-  <meta name="description" content="Why writing with a fountain pen makes the sentences, or at least the handwriting, better.">
+  <meta name="description" content="A pen that carries its own ink and lets it down by capillary action. A short history, an anatomy, and a nib you can write with.">
   <meta name="author" content="Subidit Nandy">
   <link rel="canonical" href="https://subidit.com/fountain-pens/">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#24382a">
-
+  <meta name="theme-color" content="#f2ebdd">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://subidit.com/fountain-pens/">
   <meta property="og:title" content="Fountain pens · Subidit Nandy">
-  <meta property="og:description" content="Why writing with a fountain pen makes the sentences, or at least the handwriting, better.">
+  <meta property="og:description" content="A pen that carries its own ink and lets it down by capillary action. A short history, an anatomy, and a nib you can write with.">
   <meta property="og:image" content="https://subidit.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="preload" href="/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/eb-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/style.css">
-
-  <script>
-    // Runs before first paint: pins --screen to one screen's height (on touch
-    // screens only re-measured when the width changes, so the toolbar sliding
-    // doesn't resize the page), and adds .is-ready once the fonts are in.
-    (function () {
-      var root = document.documentElement;
-      root.classList.add('js');
-      var touch = window.matchMedia('(pointer: coarse)').matches;
-      var lastWidth = 0;
-      function measure() {
-        var w = window.innerWidth;
-        if (touch && w === lastWidth) return;
-        lastWidth = w;
-        root.style.setProperty('--screen', window.innerHeight + 'px');
-      }
-      measure();
-      window.addEventListener('resize', measure);
-      function ready() { root.classList.add('is-ready'); }
-      if (!document.fonts || !document.fonts.load) return ready();
-      Promise.race([
-        Promise.all([
-          document.fonts.load('400 1em "EB Garamond"'),
-          document.fonts.load('italic 400 1em "EB Garamond"')
-        ]),
-        new Promise(function (resolve) { setTimeout(resolve, 2500); })
-      ]).then(ready, ready);
-    })();
-  </script>
-
+  <link rel="preload" href="/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fountain-pens/pens.css">
+  <script>document.documentElement.classList.add('js');</script>
   <!-- Analytics -->
   <script>
     !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="gu mu yu bu ku init Vu Gu zu Uu Ku el Wu Yu ju rh oh ah uh hh dh capture getExtension Zu fu gh calculateEventProperties ph register register_once register_for_session unregister unregister_for_session Hu mh getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync wh identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset kh shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty yh ih createPersonProfile setInternalOrTestUser bh Su xu opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing th debug il Os getPageViewId captureTraceFeedback captureTraceMetric Du".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -62,57 +31,133 @@
     })
 </script>
 </head>
-<body class="pane--sage">
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <symbol id="i-pen" viewBox="0 0 48 48"><g transform="rotate(45 24 24)"><path d="M19 8a5 5 0 0 1 10 0v15H19z"/><path d="M19 19h10M27.5 7v9"/><path d="M20 23h8l-1 5h-6z"/><path d="M21 28c0 6 2 10 3 16 1-6 3-10 3-16"/><circle cx="24" cy="34" r="1"/><path d="M24 35.5V44"/></g></symbol>
-    </defs>
-  </svg>
+<body>
+  <header class="bar">
+    <a href="/#things"><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M14.5 8h-13M6.5 3l-5 5 5 5"/></svg>Subidit Nandy</a>
+    <span><span class="bar__long">Things made with care, </span>ii of v</span>
+  </header>
 
-  <main class="thing">
-    <header class="thing-head label">
-      <a href="/#things"><span class="arr arr--left" aria-hidden="true"></span> Subidit Nandy</a>
-      <span>Things made with care · ii / v</span>
-    </header>
-
-    <section class="thing__hero">
-      <h1 class="thing__title"><span style="--n:0">Fountain</span> <span style="--n:1">pens</span></h1>
-      <svg class="thing__ico" aria-hidden="true"><use href="#i-pen"/></svg>
-      <p class="pane__lede thing__lede">Handwriting got worse when we stopped caring what we wrote with. I’m trying to undo that, one bottle of ink at a time.</p>
+  <main>
+    <section class="hero">
+      <h1 class="bleed">Fountain <em>pens</em></h1>
+      <p class="hero__lede bleed">A pen that carries its own ink and lets it down by gravity and capillary action. You don't press. You let it write.</p>
+      <svg class="hero__nib" viewBox="0 0 200 400" aria-hidden="true">
+        <path class="nib-line" d="M40 40 C40 18 160 18 160 40 L160 150 C160 232 122 300 105 370 L100 390 L95 370 C78 300 40 232 40 150 Z"/>
+        <circle class="nib-line" cx="100" cy="168" r="7"/>
+        <path class="nib-line" d="M100 175 L100 390"/>
+        <path class="nib-line thin" d="M62 70 C80 58 120 58 138 70 M66 92 C84 82 116 82 134 92 M72 114 C88 106 112 106 128 114"/>
+      </svg>
     </section>
 
-    <section class="thing__notes" aria-label="Notes">
-      <div class="thing__note">
-        <p class="label"><span class="label__num">01</span> Why</p>
-        <p class="pane__big">A fountain pen asks you to slow down by about ten per cent, and in that ten per cent the sentences get better. Or at least <em>they look better</em>.</p>
-      </div>
-      <div class="thing__note">
-        <p class="label"><span class="label__num">02</span> What I look for</p>
-        <p class="pane__big">A nib with a little give, a cap that posts without wobbling, and a body I can fill from a bottle instead of throwing away.</p>
-      </div>
-      <div class="thing__note">
-        <p class="label"><span class="label__num">03</span> What I’ve learned</p>
-        <p class="pane__big">Ink is the real rabbit hole. You only need one pen, but there are <em>always more inks</em>.</p>
+    <section class="chapter reveal">
+      <h2>Dip, write, dip</h2>
+      <div class="prose">
+        <p>For about five thousand years, writing meant dipping. Egyptian scribes cut reeds; medieval monks cut goose feathers and re-cut them every few pages as the tips wore soft. In the nineteenth century, the factories of Birmingham began stamping out steel nibs by the million, and writing got cheap. But every few words, you still had to stop and dip.</p>
+        <p>Putting the ink inside the pen was the obvious answer and a stubborn problem. Early reservoir pens either starved or flooded, and usually leaked on the way. The trouble wasn't the ink. It was the air.</p>
       </div>
     </section>
 
-    <section class="thing__mine">
-      <p class="label"><span class="label__num">04</span> Mine</p>
-      <dl>
-          <div><dt>Daily writer</dt><dd><span class="fill">pen</span>, <span class="fill">nib size</span></dd></div>
-          <div><dt>Inked with</dt><dd><span class="fill">ink</span></dd></div>
-          <div><dt>On paper that doesn’t feather</dt><dd><span class="fill">notebook</span></dd></div>
-      </dl>
+    <section class="breathe" aria-labelledby="breathe-title">
+      <div class="breathe__text reveal">
+        <h2 id="breathe-title">The pen breathes</h2>
+        <p>As ink leaves a sealed reservoir, it leaves a vacuum behind it, and the vacuum holds the rest of the ink back. A pen that works has to let air in at the same rate ink goes out.</p>
+        <p>That's the feed: the ridged black piece under the nib. A narrow channel carries ink down by capillary action, and a wider one lets bubbles of air climb up to take its place. The fins along its sides catch any surplus when your hand warms the pen and the air inside expands.</p>
+        <p>Lewis Waterman patented his three-channel feed in 1884. The story goes that he was an insurance salesman who lost a big contract when a leaky pen blotted it. It's a lovely story, and historians doubt it.</p>
+      </div>
+      <figure class="feed">
+        <svg viewBox="0 0 240 520" role="img" aria-label="Cross-section of a pen: ink flows down a narrow channel to the nib while air bubbles rise into the reservoir">
+          <rect class="feed__barrel" x="60" y="10" width="120" height="250" rx="12"/>
+          <rect class="feed__ink" x="66" y="70" width="108" height="184" rx="8"/>
+          <g class="bubbles">
+            <circle r="4"/><circle r="3"/><circle r="5"/>
+          </g>
+          <path class="feed__body" d="M78 260 L162 260 L162 300 L150 300 L150 312 L162 312 L162 324 L150 324 L150 336 L162 336 L162 348 L150 348 L150 360 L162 360 L162 372 L140 440 L100 440 L78 372 Z"/>
+          <path class="feed__air" d="M96 262 L96 420"/>
+          <path class="feed__channel" d="M124 262 L124 430 L120 460"/>
+          <g class="drops"><circle r="2.6"/><circle r="2.6"/><circle r="2.6"/><circle r="2.6"/></g>
+          <path class="feed__nib" d="M70 330 L170 330 L170 400 C170 440 136 476 124 504 L120 512 L116 504 C104 476 70 440 70 400 Z"/>
+          <path class="feed__slit" d="M120 446 L120 512"/>
+          <circle class="feed__hole" cx="120" cy="440" r="5"/>
+          <path class="feed__line" d="M118 514 C150 516 190 512 230 516"/>
+        </svg>
+        <figcaption><span><i class="key key--ink"></i>Ink down the narrow channel</span> <span><i class="key key--air"></i>Air up the wide one</span></figcaption>
+      </figure>
     </section>
 
-    <nav class="thing-next label" aria-label="More things">
-      <a class="thing-next__prev" href="/watches/"><span class="arr arr--left" aria-hidden="true"></span> Previous<span class="thing-next__big">Watches</span></a>
-      <a class="thing-next__next" href="/keyboards/">Next <span class="arr arr--right" aria-hidden="true"></span><span class="thing-next__big">Keyboards</span></a>
-    </nav>
+    <section class="anatomy reveal" aria-labelledby="anatomy-title">
+      <h2 id="anatomy-title">Anatomy of a nib</h2>
+      <div class="anatomy__grid">
+        <svg class="anatomy__nib" viewBox="0 0 200 420" aria-hidden="true">
+          <path class="part" data-p="body" d="M40 40 C40 18 160 18 160 40 L160 150 C160 232 122 300 105 370 L100 390 L95 370 C78 300 40 232 40 150 Z"/>
+          <path class="part thin" data-p="body" d="M62 70 C80 58 120 58 138 70 M66 92 C84 82 116 82 134 92 M72 114 C88 106 112 106 128 114"/>
+          <path class="part" data-p="shoulders" d="M40 150 L40 40 M160 150 L160 40"/>
+          <circle class="part" data-p="hole" cx="100" cy="168" r="7"/>
+          <path class="part" data-p="slit" d="M100 175 L100 388"/>
+          <path class="part" data-p="tines" d="M100 200 C112 260 116 300 104 372 M100 200 C88 260 84 300 96 372"/>
+          <ellipse class="part fill" data-p="tipping" cx="100" cy="392" rx="9" ry="6"/>
+        </svg>
+        <ol class="anatomy__list">
+          <li data-p="tipping"><button type="button"><b>Tipping</b><span>A bead of hard metal welded on and ground smooth. It's the only part that touches paper, and its shape decides whether the pen writes fine, broad or italic.</span></button></li>
+          <li data-p="slit"><button type="button"><b>Slit</b><span>The cut down the middle. Ink runs along it by capillary action, which is why a pen writes the moment it touches paper.</span></button></li>
+          <li data-p="tines"><button type="button"><b>Tines</b><span>The two halves either side of the slit. Press a soft nib and they spread apart, laying down a wider line.</span></button></li>
+          <li data-p="hole"><button type="button"><b>Breather hole</b><span>Stops the slit cracking where it ends, and sets how far the tines can flex. Despite the name, it barely breathes.</span></button></li>
+          <li data-p="shoulders"><button type="button"><b>Shoulders</b><span>Where the nib grips the feed and the section. Pushed in or out a millimetre, they change how wet it writes.</span></button></li>
+          <li data-p="body"><button type="button"><b>Body</b><span>Steel, or gold for its spring. The engraving is the maker's signature, and usually the nib's size.</span></button></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="pad" aria-labelledby="pad-title" style="--ink-now: var(--ink)">
+      <div class="pad__head">
+        <h2 id="pad-title">Write something</h2>
+        <p>An italic nib is a chisel of metal held at an angle. Pull it sideways and the line is thin; pull it down and it's broad. Every letter's thicks and thins come from the direction of the hand, nothing else.</p>
+      </div>
+      <div class="pad__paper">
+        <canvas id="pad" aria-label="A writing pad. Draw with a mouse, finger or stylus." role="img"></canvas>
+        <p class="pad__hint" id="pad-hint">Write here. Slowly is better.</p>
+      </div>
+      <div class="pad__tools">
+        <fieldset class="seg">
+          <legend>Nib</legend>
+          <label><input type="radio" name="nib" value="fine"><span>Fine</span></label>
+          <label><input type="radio" name="nib" value="stub"><span>Stub</span></label>
+          <label><input type="radio" name="nib" value="italic" checked><span>Italic</span></label>
+          <label><input type="radio" name="nib" value="flex"><span>Flex</span></label>
+        </fieldset>
+        <fieldset class="inks">
+          <legend>Ink</legend>
+          <label style="--sw:#2a3a63"><input type="radio" name="ink" value="iron" checked><span>Iron gall</span></label>
+          <label style="--sw:#6e1f2a"><input type="radio" name="ink" value="oxblood"><span>Oxblood</span></label>
+          <label style="--sw:#6b4a2b"><input type="radio" name="ink" value="sepia"><span>Sepia</span></label>
+          <label style="--sw:#1c5b5a"><input type="radio" name="ink" value="teal"><span>Teal</span></label>
+        </fieldset>
+        <button type="button" class="pad__clear" id="pad-clear">Fresh page</button>
+      </div>
+    </section>
+
+    <section class="chapter ink reveal" aria-labelledby="ink-title">
+      <h2 id="ink-title">Ink that darkens</h2>
+      <div class="prose">
+        <p>For more than a thousand years, serious writing was done in iron gall ink: oak galls crushed and soaked, mixed with iron sulfate and a little gum. It goes on a pale blue-grey and turns black over the next hours as the iron oxidises in the paper. Leonardo filled his notebooks with it. Bach wrote his scores in it, and some of them are now being slowly eaten by it, because the same acid that bites into the page to make the ink permanent keeps biting.</p>
+        <p>Modern fountain pen inks are mostly dyes in water: gentle on pens, and available in more colours than anyone needs. Good ones <em>shade</em>, pooling darker where the nib slows down, so the writing keeps a record of the hand. Try the iron gall above and watch it darken.</p>
+      </div>
+    </section>
+
+    <section class="chapter close reveal">
+      <h2>Why bother</h2>
+      <div class="prose">
+        <p>The ballpoint won, of course. László Bíró patented his in 1938, and by the 1950s a ballpoint cost next to nothing. It's a fine tool for signing a delivery.</p>
+        <p>A fountain pen asks for a little care: refill it, keep it capped, use decent paper. In return it glides with no pressure at all, and it makes your handwriting look like you meant it. I find it hard to write a careless sentence with one.</p>
+      </div>
+    </section>
   </main>
 
-  <script src="/reveal.js" defer></script>
+  <nav class="next" aria-label="More things">
+    <a href="/watches/" class="next__prev"><span>Previous</span>Watches</a>
+    <a href="/keyboards/" class="next__next"><span>Next</span>Mechanical keyboards<svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 8h13M9.5 3l5 5-5 5"/></svg></a>
+  </nav>
 
+  <script src="/fountain-pens/pens.js" defer></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8bb81c5baa8942f482f1a525a52ce822"}'></script>
 </body>
