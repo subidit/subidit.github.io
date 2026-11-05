@@ -128,7 +128,7 @@
     entries.forEach(function (e) { if (!e.isIntersecting) e.target.classList.remove('is-in'); });
   });
 
-  document.querySelectorAll('.pane .label, .press').forEach(function (el) {
+  document.querySelectorAll('.pane .label').forEach(function (el) {
     el.classList.add('reveal');
     once.observe(el);
   });
@@ -138,6 +138,15 @@
     once.observe(list);
   });
   document.querySelectorAll('.doodle').forEach(function (el) {
+    // the pen goes over the ink shapes one after another, then the colour
+    // washes in behind them, starting before the last line is quite done
+    var ink = el.querySelectorAll('.doodle__ink path'), wash = el.querySelectorAll('.doodle__color path');
+    Array.prototype.forEach.call(ink, function (p, k) {
+      p.setAttribute('pathLength', '1');
+      p.style.setProperty('--d', (k * .28).toFixed(2) + 's');
+    });
+    var start = Math.max(0, ink.length - 1) * .28 + .7;
+    Array.prototype.forEach.call(wash, function (p, k) { p.style.setProperty('--d', (start + k * .12).toFixed(2) + 's'); });
     el.classList.add('reveal');
     drawIn.observe(el);
     drawOut.observe(el);

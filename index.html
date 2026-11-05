@@ -153,22 +153,23 @@
       <p class="label"><span class="label__num">02</span> Type</p>
       <div class="pane__grid">
         <p class="pane__big">Typefaces came first. I’ve spent an unreasonable amount of time learning the difference between a <em class="w-typeface">typeface</em> and a <span class="w-font">font</span>, and so far nobody has asked.</p>
-        <!-- Nobody asked, so here's the answer anyway: a typeface is the design;
-             a font was one case of metal letters cast from it, one size, one style -->
-        <figure class="press" id="press">
-          <div class="press__cases" role="radiogroup" aria-label="Choose a font from the typeface">
-            <button type="button" role="radio" aria-checked="true" data-case="regular">Regular</button>
-            <button type="button" role="radio" aria-checked="false" data-case="italic"><i>Italic</i></button>
-            <button type="button" role="radio" aria-checked="false" data-case="bold"><b>Bold</b></button>
-          </div>
-          <label class="press__stick">
-            <span class="press__sorts" id="sorts" aria-hidden="true"></span>
-            <input class="press__input" id="press-input" type="text" value="font" maxlength="9" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Set a word in metal type, up to nine letters">
-          </label>
-          <div class="press__paper"><p class="press__print" id="print" aria-live="polite"></p></div>
-          <div class="press__foot">
-            <figcaption>Nobody asked, so: a <em>typeface</em> is the design. A <span class="press__font">font</span> was one case of metal letters cast from it, in one size and one style. Set a word; pick a case.</figcaption>
-            <button type="button" class="press__go" id="press-go">Print</button>
+        <!-- Nobody asked, so: a letter from this very typeface, taken apart.
+             The outlines are EB Garamond's own, drawn from the font file. -->
+        <figure class="anatomy" id="anatomy">
+          <svg class="anatomy__svg" viewBox="-330 -770 1420 1130" role="img" aria-labelledby="anatomy-cap">
+            <g class="anatomy__metrics"></g>
+            <g class="anatomy__halo"></g>
+            <g class="anatomy__glyph"></g>
+            <g class="anatomy__parts"></g>
+          </svg>
+          <div class="anatomy__foot">
+            <div class="anatomy__pick" role="group" aria-label="Choose a letter">
+              <button type="button" aria-pressed="true" data-l="g">g</button>
+              <button type="button" aria-pressed="false" data-l="a">a</button>
+              <button type="button" aria-pressed="false" data-l="R">R</button>
+              <button type="button" aria-pressed="false" data-l="&amp;">&amp;</button>
+            </div>
+            <figcaption id="anatomy-cap" aria-live="polite"></figcaption>
           </div>
         </figure>
       </div>
